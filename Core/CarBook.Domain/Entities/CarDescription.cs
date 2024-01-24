@@ -11,6 +11,6 @@ namespace CarBook.Domain.Entities
         public int CarDescriptionId { get; set; }
         public int CarId { get; set; }
         public Car? Car { get; set; }
-        public string Details { get; set; }
+        public string? Details { get; set; }
     }
 }
