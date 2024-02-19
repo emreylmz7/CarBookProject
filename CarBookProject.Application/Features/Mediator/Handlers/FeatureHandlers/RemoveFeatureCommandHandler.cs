@@ -7,9 +7,9 @@ namespace CarBookProject.Application.Features.Mediator.Handlers.FeatureHandlers
 {
     public class RemoveFeatureCommandHandler : IRequestHandler<RemoveFeatureCommand>
     {
-        private readonly IRepository<Brand> _repository;
+        private readonly IRepository<Feature> _repository;
 
-        public RemoveFeatureCommandHandler(IRepository<Brand> repository)
+        public RemoveFeatureCommandHandler(IRepository<Feature> repository)
         {
             _repository = repository;
         }
