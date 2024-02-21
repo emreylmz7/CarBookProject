@@ -16,6 +16,9 @@ namespace CarBookProject.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.v1 = "Services";
+            ViewBag.v2 = "Our Services";
+
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:44335/api/Services");
             if (responseMessage.IsSuccessStatusCode)

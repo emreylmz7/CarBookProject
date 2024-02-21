@@ -16,6 +16,8 @@ namespace CarBookProject.WebApi.Controllers
         private readonly GetCarByIdQueryHandler _getCarByIdQueryHandler;
         private readonly GetCarWithBrandQueryHandler _getCarWithBrandQueryHandler;
 
+
+
         public CarsController(
             CreateCarCommandHandler createCarCommandHandler,
             UpdateCarCommandHandler updateCarCommandHandler,
@@ -73,6 +75,6 @@ namespace CarBookProject.WebApi.Controllers
         {
             var values = _getCarWithBrandQueryHandler.Handle();
             return Ok(values);
-        }   
+        }
     }
 }

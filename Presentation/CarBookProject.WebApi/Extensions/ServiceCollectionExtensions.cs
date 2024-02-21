@@ -11,6 +11,8 @@ using CarBookProject.Persistence.Repositories.CarRepositories;
 using CarBookProject.Persistence.Repositories;
 using CarBookProject.Application.Interfaces.BlogInterfaces;
 using CarBookProject.Persistence.Repositories.BlogRepositories;
+using CarBookProject.Application.Interfaces.CarPricingInterfaces;
+using CarBookProject.Persistence.Repositories.CarPricingRepositories;
 
 namespace CarBookProject.WebApi.Extensions
 {
@@ -22,6 +24,7 @@ namespace CarBookProject.WebApi.Extensions
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
             services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
+            services.AddScoped(typeof(ICarPricingRepository), typeof(CarPricingRepository));
 
             services.AddScoped<GetAboutQueryHandler>();
             services.AddScoped<GetAboutByIdQueryHandler>();

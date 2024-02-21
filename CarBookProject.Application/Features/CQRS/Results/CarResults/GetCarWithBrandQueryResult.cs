@@ -20,5 +20,6 @@ namespace CarBookProject.Application.Features.CQRS.Results.CarResults
         public byte Luggage { get; set; }
         public string? Fuel { get; set; }
         public string? MainImageUrl { get; set; }
+        public decimal HourlyPrice { get; set; }
     }
 }

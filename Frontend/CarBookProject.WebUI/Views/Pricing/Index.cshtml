@@ -1,0 +1,78 @@
+﻿@model List<ResultCarPricingWithCarDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+<section class="ftco-section ftco-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="car-list">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr class="text-center">
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
+                                <th class="bg-primary heading">Per Hour Rate</th>
+                                <th class="bg-dark heading">Per Day Rate</th>
+                                <th class="bg-black heading">Leasing</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.GroupBy(x => new { x.Brand, x.Model }))
+                            {
+                                <tr>
+                                    <td class="car-image">
+                                        <div class="img" style="background-image:url(@item.First().CoverImageUrl);"></div>
+                                    </td>
+                                    <td class="product-name">
+                                        <h3>@item.Key.Brand @item.Key.Model</h3>
+                                        <p class="mb-0 rated">
+                                            <span>rated:</span>
+                                            <span class="ion-ios-star"></span>
+                                            <span class="ion-ios-star"></span>
+                                            <span class="ion-ios-star"></span>
+                                            <span class="ion-ios-star"></span>
+                                            <span class="ion-ios-star"></span>
+                                        </p>
+                                    </td>
+
+                                    @foreach (var price in item.Where(x => x.PricingName != "Weekly"))
+                                    {
+                                        var roundedAmount = (int)Math.Floor(price.Amount); // Fiyatı tam sayıya dönüştürme
+                                        <td class="price">
+                                            <p class="btn-custom"><a href="#">Rent a car</a></p>
+                                            <div class="price-rate">
+                                                <h3>
+                                                    <span class="num"><small class="currency">$</small> @roundedAmount</span>
+                                                    <span class="per">
+                                                        @if (price.PricingName == "Hourly")
+                                                        {
+                                                            <text>/per hour</text>
+                                                        }
+                                                        else if (price.PricingName == "Daily")
+                                                        {
+                                                            <text>/per day</text>
+                                                        }
+                                                        else if (price.PricingName == "Monthly")
+                                                        {
+                                                            <text>/per month</text>
+                                                        }
+                                                    </span>
+                                                </h3>
+                                                <span class="subheading">$3/hour fuel surcharges</span>
+                                            </div>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

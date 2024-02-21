@@ -14,9 +14,15 @@ namespace CarBookProject.WebApi.Mappings
             CreateMap<UpdateBlogCommand, Blog>().ReverseMap();
             CreateMap<GetBlogByIdQueryResult, Blog>().ReverseMap();
             CreateMap<GetBlogQueryResult, Blog>().ReverseMap();
+
             CreateMap<Blog, GetLast3BlogQueryResult > ()
                 .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.Author!.Name))
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category!.Name))
+                .ReverseMap();
+
+            CreateMap<Blog, GetAllBlogsWithAuthorQueryResult>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category!.Name))
+                .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.Author!.Name))
                 .ReverseMap();
 
         }

@@ -1,5 +1,4 @@
 ﻿using CarBookProject.Dto.Dtos.Car;
-using CarBookProject.Dto.Dtos.Service;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -16,6 +15,9 @@ namespace CarBookProject.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.v1 = "Cars";
+            ViewBag.v2 = "Choose Your Car";
+
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:44335/api/Cars/GetCarWithBrand");
             if (responseMessage.IsSuccessStatusCode)

@@ -2,7 +2,7 @@
 using CarBook.Domain.Entities;
 using CarBookProject.Application.Features.CQRS.Commands.CarCommands;
 using CarBookProject.Application.Features.CQRS.Results.CarResults;
-using Microsoft.OpenApi.Extensions;
+using System.Linq;
 
 namespace CarBookProject.WebApi.Mappings
 {
@@ -18,6 +18,7 @@ namespace CarBookProject.WebApi.Mappings
 
             CreateMap<Car, GetCarWithBrandQueryResult>()
                 .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name))
+                .ForMember(dest => dest.HourlyPrice, opt => opt.MapFrom(src => src.CarPricing != null && src.CarPricing.Any() ? src.CarPricing.First().Amount : 0))
                 .ReverseMap();
         }
     }

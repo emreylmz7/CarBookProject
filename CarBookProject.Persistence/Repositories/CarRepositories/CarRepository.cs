@@ -2,11 +2,7 @@
 using CarBookProject.Application.Interfaces.CarInterfaces;
 using CarBookProject.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic; // Don't forget to include this namespace
 
 namespace CarBookProject.Persistence.Repositories.CarRepositories
 {
@@ -21,8 +17,22 @@ namespace CarBookProject.Persistence.Repositories.CarRepositories
 
         public List<Car> GetCarsWithBrands()
         {
-            var values = _context.Cars.Include(x=> x.Brand).ToList();
-            return values;
+            // Include both Brand and CarPricing entities
+            var carsWithBrandsAndPricing = _context.Cars
+                .Include(x => x.Brand)
+                .Include(x => x.CarPricing)
+                .ToList();
+
+            // Now you can access Amount property under CarPricing
+            foreach (var car in carsWithBrandsAndPricing)
+            {
+                foreach (var pricing in car.CarPricing!)
+                {
+                    var amount = pricing.Amount;
+                }
+            }
+
+            return carsWithBrandsAndPricing;
         }
     }
 }

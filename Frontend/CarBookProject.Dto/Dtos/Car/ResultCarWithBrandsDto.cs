@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace CarBookProject.Dto.Dtos.Car
 {
     public class ResultCarWithBrandsDto
@@ -19,5 +14,6 @@ namespace CarBookProject.Dto.Dtos.Car
         public byte Luggage { get; set; }
         public string? Fuel { get; set; }
         public string? MainImageUrl { get; set; }
+        public decimal HourlyPrice { get; set; }
     }
 }

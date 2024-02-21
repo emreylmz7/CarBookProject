@@ -1,5 +1,4 @@
 ﻿using CarBookProject.Dto.Dtos.Contact;
-using CarBookProject.Dto.Dtos.Service;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -17,6 +16,9 @@ namespace CarBookProject.WebUI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.v1 = "Contact";
+            ViewBag.v2 = "Contact Us";
+
             return View();
         }
 
