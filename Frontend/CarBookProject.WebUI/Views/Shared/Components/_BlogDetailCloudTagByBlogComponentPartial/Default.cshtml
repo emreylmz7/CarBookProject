@@ -1,9 +1,10 @@
-﻿
+﻿@model List<ResultTagCloudDto>
+
 <div class="tag-widget post-tag-container mb-5 mt-5">
     <div class="tagcloud">
-        <a href="#" class="tag-cloud-link">sedan</a>
-        <a href="#" class="tag-cloud-link">SUV</a>
-        <a href="#" class="tag-cloud-link">convertible</a>
-        <a href="#" class="tag-cloud-link">luxury</a>
+        @foreach(var item in Model)
+        {
+            <a href="#" class="tag-cloud-link">@item.Title</a>
+        }
     </div>
 </div>
