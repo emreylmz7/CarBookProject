@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "CarDetail";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+@await Component.InvokeAsync("_CarDetailMainComponentPartial", new { id = ViewBag.CarId })
+
+@await Component.InvokeAsync("_CarDetailRelatedCarsComponentPartial")
+
+
+
+
+

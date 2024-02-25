@@ -2,38 +2,27 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace CarBookProject.WebUI.Controllers
+namespace CarBookProject.WebUI.ViewComponents.CarViewComponents
 {
-    public class CarController : Controller
+    public class _CarDetailRelatedCarsComponentPartial:ViewComponent
     {
         private readonly IHttpClientFactory _httpClientFactory;
-
-        public CarController(IHttpClientFactory httpClientFactory)
+        public _CarDetailRelatedCarsComponentPartial(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            ViewBag.v1 = "Cars";
-            ViewBag.v2 = "Choose Your Car";
-
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:44335/api/Cars/GetCarWithBrand");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultCarWithBrandsDto>>(jsonData);
-                return View(values);
+                var firstFiveValues = values!.Take(3).ToList();
+                return View(firstFiveValues);
             }
-            return View();
-        }
-
-        public async Task<IActionResult> CarDetail(int id)
-        {
-            ViewBag.v1 = "Cars";
-            ViewBag.v2 = "Car Details";
-            ViewBag.CarId = id;
             return View();
         }
     }

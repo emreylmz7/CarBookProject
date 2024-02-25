@@ -13,7 +13,7 @@
             {
                 <div class="col-md-12 text-center d-flex ftco-animate">
                     <div class="blog-entry justify-content-end mb-md-5">
-                        <a href="blog-single.html" class="block-20 img" style="background-image: url('@item.CoverImageUrl');">
+                        <a href="/Blog/BlogDetail/@item.BlogId" class="block-20 img" style="background-image: url('@item.CoverImageUrl');">
                         </a>
                         <div class="text px-md-5 pt-4">
                             <div class="meta mb-3">
@@ -21,7 +21,7 @@
                                 <div><a href="#">@item.AuthorName</a></div>
                                 <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 0</a></div>
                             </div>
-                            <h3 class="heading mt-2"><a href="#">@item.Title</a></h3>
+                            <h3 class="heading mt-2"><a href="/Blog/BlogDetail/@item.BlogId">@item.Title</a></h3>
                             <p>@item.Description</p>
                             <p><a href="/Blog/BlogDetail/@item.BlogId" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
                         </div>
