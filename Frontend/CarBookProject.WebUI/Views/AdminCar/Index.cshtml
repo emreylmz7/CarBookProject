@@ -1,0 +1,61 @@
+﻿@model List<ResultCarWithBrandsDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Car List</h4>
+                        <p class="card-subtitle mb-4">
+                            You can perform transactions related to Cars on this page.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Brand</th>
+                                        <th>Model</th>
+                                        <th>Transmission Type</th>
+                                        <th>Fuel</th>
+                                        <th>Kilometers</th>
+                                        <th>Delete</th>
+                                        <th>Update</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var car in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <td>@count</td>
+                                            <td>@car.BrandName</td>
+                                            <td>@car.Model</td>
+                                            <td>@car.TransmissionType</td>
+                                            <td>@car.Fuel</td>
+                                            <td>@car.Km</td>
+                                            <td><a href="/AdminCar/RemoveCar/@car.CarId" class="btn btn-outline-danger">Delete</a></td>
+                                            <td><a href="/AdminCar/UpdateCar/@car.CarId" class="btn btn-outline-success">Update</a></td>
+                                            <td><a href="/CarList/CarDetail/@car.CarId" class="btn btn-outline-dark">Detail</a></td>
+                                        
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <td><a href="/AdminCar/CreateCar/" class="btn btn-outline-primary">Create Car</a></td>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

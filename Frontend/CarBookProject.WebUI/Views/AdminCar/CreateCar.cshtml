@@ -1,0 +1,88 @@
+﻿@model CreateCarDto
+
+@{
+    ViewData["Title"] = "CreateCar";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Create New Car</h4>
+                        <p class="card-subtitle mb-4">You must provide all the essential details about the vehicle. After completing the data entries, you can finalize the process by clicking the save button.</p>
+
+                        <form method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label for="BrandId">Brand ID</label>
+                                        @Html.DropDownList("BrandId", ViewBag.BrandValues as List<SelectListItem>, "Select Brand", new { @class = "form-control", id = "BrandId" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="model">Model</label>
+                                        <input type="text" class="form-control" id="model" asp-for="Model" placeholder="Enter Model">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="coverImageUrl">Cover Image URL</label>
+                                        <input type="text" class="form-control" id="coverImageUrl" asp-for="CoverImageUrl" placeholder="Enter Cover Image URL">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="km">Kilometers</label>
+                                        <input type="number" class="form-control" id="km" asp-for="Km" placeholder="Enter Kilometers">
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="TransmissionType">Transmission Type</label>
+                                        <select class="form-control" id="TransmissionType" asp-for="TransmissionType">
+                                            <option value="Automatic">Automatic</option>
+                                            <option value="Manual">Manual</option>
+                                            <option value="SemiAutomatic">SemiAutomatic</option>
+                                            <option value="ContinuouslyVariableTransmission">Continuously Variable Transmission</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="seat">Number of Seats</label>
+                                                <input type="number" class="form-control" id="seat" asp-for="Seat" placeholder="Enter Number of Seats">
+                                            </div>
+                                            <div class="col">
+                                                <label for="luggage">Luggage Capacity</label>
+                                                <input type="number" class="form-control" id="luggage" asp-for="Luggage" placeholder="Enter Luggage Capacity">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Fuel">Fuel Type</label>
+                                        <select class="form-control" id="Fuel" asp-for="Fuel">
+                                            <option value="Gasoline">Gasoline</option>
+                                            <option value="Diesel">Diesel</option>
+                                            <option value="Electric">Electric</option>
+                                            <option value="Hybrid">Hybrid</option>
+                                            <option value="CNG">CNG</option>
+                                            <option value="LPG">LPG</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mainImageUrl">Main Image URL</label>
+                                        <input type="text" class="form-control" id="mainImageUrl" asp-for="MainImageUrl" placeholder="Enter Main Image URL">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Create</button>
+                        </form>
+
+                    </div> <!-- end card-body-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
