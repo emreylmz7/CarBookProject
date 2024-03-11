@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarBook.Domain.Entities
+﻿namespace CarBook.Domain.Entities
 {
     public class Blog
     {
@@ -19,6 +13,5 @@ namespace CarBook.Domain.Entities
         public string? Description { get; set; }
         public List<TagCloud>? TagClouds { get; set; }
         public List<Comment>? Comments { get; set; }
-
     }
 }

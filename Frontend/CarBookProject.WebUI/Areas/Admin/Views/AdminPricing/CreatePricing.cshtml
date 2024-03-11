@@ -1,0 +1,32 @@
+﻿@model CreatePricingDto
+@{
+    ViewData["Title"] = "CreatePricing";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Create New Pricing</h4>
+                        <p class="card-subtitle mb-4">You must provide all the essential details about the Pricing. After completing the data entries, you can finalize the process by clicking the save button.</p>
+
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="Name">Name</label>
+                                <input type="text" class="form-control" id="Name" asp-for="Name" placeholder="Enter Pricing Name">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Create</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

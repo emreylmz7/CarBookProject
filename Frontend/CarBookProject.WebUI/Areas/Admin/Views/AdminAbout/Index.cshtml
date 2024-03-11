@@ -1,0 +1,51 @@
+﻿@model List<ResultAboutDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">About List</h4>
+                        <p class="card-subtitle mb-4">
+                            You can perform transactions related to About on this page.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Image URL</th>
+                                        <th>Delete</th>
+                                        <th>Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.AboutId</td>
+                                            <td>@item.Title</td>
+                                            <td>@item.Description</td>
+                                            <td><img src="@item.ImageUrl" alt="Image" style="max-width: 100px;" /></td>
+                                            <td><a href="/Admin/AdminAbout/RemoveAbout/@item.AboutId" class="btn btn-outline-danger">Delete</a></td>
+                                            <td><a href="/Admin/AdminAbout/UpdateAbout/@item.AboutId" class="btn btn-outline-success">Update</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="/Admin/AdminAbout/CreateAbout/" class="btn btn-outline-primary">Create About</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

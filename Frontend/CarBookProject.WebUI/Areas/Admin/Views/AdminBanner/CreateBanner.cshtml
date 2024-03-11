@@ -1,0 +1,46 @@
+﻿@model CreateBannerDto
+
+@{
+    ViewData["Title"] = "CreateBanner";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Create New Banner</h4>
+                        <p class="card-subtitle mb-4">You must provide all the essential details about the banner. After completing the data entries, you can finalize the process by clicking the save button.</p>
+
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="Title">Title</label>
+                                <input type="text" class="form-control" id="Title" asp-for="Title" placeholder="Enter Title">
+                            </div>
+                            <div class="form-group">
+                                <label for="Description">Description</label>
+                                <textarea class="form-control" id="Description" asp-for="Description" placeholder="Enter Description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="VideoDescription">Video Description</label>
+                                <textarea class="form-control" id="VideoDescription" asp-for="VideoDescription" placeholder="Enter Video Description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="VideoUrl">Video URL</label>
+                                <input type="text" class="form-control" id="VideoUrl" asp-for="VideoUrl" placeholder="Enter Video URL">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Create</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

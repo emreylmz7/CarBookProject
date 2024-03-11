@@ -61,15 +61,15 @@ File: App Css
 }
 
 .vertical-menu {
-  width: 230px;
-  z-index: 1001;
-  background: #2f4050;
-  bottom: 0;
-  margin-top: 0;
-  top: 0;
-  position: fixed;
-  -webkit-box-shadow: 0 0 20px 0 rgba(183, 190, 199, 0.15);
-          box-shadow: 0 0 20px 0 rgba(183, 190, 199, 0.15);
+    width: 230px;
+    z-index: 1001;
+    background: #e74c3c;
+    bottom: 0;
+    margin-top: 0;
+    top: 0;
+    position: fixed;
+    -webkit-box-shadow: 0 0 20px 0 rgba(183, 190, 199, 0.15);
+    box-shadow: 0 0 20px 0 rgba(183, 190, 199, 0.15);
 }
 
 .main-content {

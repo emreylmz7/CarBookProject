@@ -1,0 +1,61 @@
+﻿@model UpdateBlogDto
+
+@{
+    ViewData["Title"] = "UpdateBlog";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Update Blog Post</h4>
+                        <p class="card-subtitle mb-4">You must provide all the essential details about the blog post. After completing the data entries, you can finalize the process by clicking the save button.</p>
+
+                        <form method="post">
+                            <input type="hidden" asp-for="BlogId">
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label for="Title">Title</label>
+                                        <input type="text" class="form-control" id="Title" asp-for="Title" placeholder="Enter Title">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="CoverImageUrl">Cover Image URL</label>
+                                        <input type="text" class="form-control" id="CoverImageUrl" asp-for="CoverImageUrl" placeholder="Enter Cover Image URL">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="CreatedDate">Created Date</label>
+                                        <input type="datetime-local" class="form-control" id="CreatedDate" asp-for="CreatedDate" placeholder="Enter Created Date">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="AuthorId">Author ID</label>
+                                        @Html.DropDownList("AuthorId", ViewBag.AuthorValues as List<SelectListItem>, "Select Author", new { @class = "form-control", id = "AuthorId" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="CategoryId">Category ID</label>
+                                        @Html.DropDownList("CategoryId", ViewBag.CategoryValues as List<SelectListItem>, "Select Category", new { @class = "form-control", id = "CategoryId" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Description">Description</label>
+                                        <input type="text" class="form-control" id="Description" asp-for="Description" placeholder="Enter Description">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

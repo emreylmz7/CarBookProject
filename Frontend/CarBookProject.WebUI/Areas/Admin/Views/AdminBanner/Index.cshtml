@@ -1,0 +1,59 @@
+﻿@model List<ResultBannerDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Banner List</h4>
+                        <p class="card-subtitle mb-4">
+                            You can perform transactions related to Banner on this page.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Video URL</th>
+                                        <th>Video Description</th>
+                                        <th>Delete</th>
+                                        <th>Update</th>
+                                        <th>Open On Youtube</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <td>@count</td>
+                                            <td>@item.Title</td>
+                                            <td>@item.Description</td>
+                                            <td>@item.VideoUrl</td>
+                                            <td>@item.VideoDescription</td>
+                                            <td><a href="/Admin/AdminBanner/RemoveBanner/@item.BannerId" class="btn btn-outline-danger">Delete</a></td>
+                                            <td><a href="/Admin/AdminBanner/UpdateBanner/@item.BannerId" class="btn btn-outline-success">Update</a></td>
+                                            <td><a href="@item.VideoUrl" class="btn btn-outline-warning">On Youtube</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <td><a href="/Admin/AdminBanner/CreateBanner/" class="btn btn-outline-primary">Create Banner</a></td>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

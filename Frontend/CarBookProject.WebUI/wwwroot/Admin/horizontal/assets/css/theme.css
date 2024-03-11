@@ -146,12 +146,12 @@ File: App Css
 
 /* 2. Header */
 #page-topbar {
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 999;
-  background-color: #2f4050;
-  padding: 0 calc(24px / 2);
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 999;
+    background-color: #e74c3c;
+    padding: 0 calc(24px / 2);
 }
 
 .navbar-header {

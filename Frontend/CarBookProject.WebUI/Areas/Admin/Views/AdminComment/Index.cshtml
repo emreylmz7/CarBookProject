@@ -1,0 +1,45 @@
+﻿@model List<ResultCommentDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Comment List - BlogId: @ViewBag.v </h4>
+                        <p class="card-subtitle mb-4">
+                            You can view the list of comments made on this blog on this page. You can remove or reactivate the relevant comments.
+                        </p>
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                count++;
+                                <div class="col-md-6 mb-4">
+                                    <div class="card">
+                                        <h5 class="card-header">Yorum - @count</h5>
+                                        <div class="card-body">
+                                            <div class="media">
+                                                <img class="rounded-circle mr-3" src="@item.ImageUrl" alt="Image" style="width: 100px; height: 100px;" />
+                                                <div class="media-body">
+                                                    <h4 class="card-title">@item.Name</h4>
+                                                    <p class="card-text">@item.Description</p>
+                                                    <a href="#" class="btn btn-danger btn-sm">Remove Comment</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
