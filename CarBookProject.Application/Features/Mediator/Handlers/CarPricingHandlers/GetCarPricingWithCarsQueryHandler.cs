@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CarBookProject.Application.Features.Mediator.Queries.CarPricingQueries;
 using CarBookProject.Application.Features.Mediator.Results.CarPricingResults;
-using CarBookProject.Application.Features.Mediator.Results.LocationResults;
 using CarBookProject.Application.Interfaces.CarPricingInterfaces;
 using MediatR;
 

@@ -1,0 +1,119 @@
+﻿@model ResultStatisticsDto
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            @{
+                string[] bgClasses = { "bg-primary","bg-success", "bg-danger", "bg-dark" };
+                int bgIndex = 0;
+            }
+            @foreach (var property in typeof(ResultStatisticsDto).GetProperties())
+            {
+                <div class="col-md-6 col-xl-3">
+                    <div class="card @bgClasses[bgIndex % bgClasses.Length] border-primary">
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <span class="badge badge-soft-light float-right">Daily</span>
+                                <h5 class="card-title mb-0 text-white">@GetDisplayName(property.Name)</h5>
+                            </div>
+                            <div class="row d-flex align-items-center mb-4">
+                                <div class="col-8">
+                                    <h2 class="d-flex align-items-center mb-0 text-white">
+                                        @{
+                                            var value = GetValueWithDollarSign(Model, property.Name);
+                                            @value
+                                        }
+                                    </h2>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                bgIndex++;
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetDisplayName(string propertyName)
+    {
+        switch (propertyName)
+        {
+            case "TotalCarCount":
+                return "Total Car";
+            case "TotalLocationCount":
+                return "Total Location ";
+            case "TotalAuthorCount":
+                return "Total Author";
+            case "TotalBlogCount":
+                return "Total Blog";
+            case "TotalBrandCount":
+                return "Total Brand";
+            case "AverageHourlyRentPrice":
+                return "Average Hourly Rent Price";
+            case "AverageDailyRentPrice":
+                return "Average Daily Rent Price";
+            case "AverageWeeklyRentPrice":
+                return "Average Weekly Rent Price";
+            case "AverageMonthlyRentPrice":
+                return "Average Monthly Rent Price";
+            case "AutomaticTransmissionCarCount":
+                return "Automatic Transmission Cars";
+            case "BrandWithMostCars":
+                return "Brand With Most Cars";
+            case "BlogWithMostComments":
+                return "Blog With Most Comments";
+            case "CarCountByKmSmallerThan1000":
+                return "Cars By Km Smaller Than 1000";
+            case "CarCountWithPriceLessThan1000":
+                return "Car With Price Less Than 1000";
+            case "GasolineOrDieselCarCount":
+                return "Gasoline or Diesel Cars";
+            case "ElectricCarCount":
+                return "Electricy Cars";
+            case "CarBrandAndModelWithHighestDailyRentPrice":
+                return "Highest Daily Rent Price Car";
+            case "CarBrandAndModelWithLowestDailyRentPrice":
+                return "Lowest Daily Rent Price Car";
+            default:
+                return propertyName; // Varsayılan olarak özgün ismi geri döndürür
+        }
+    }
+}
+
+@functions
+{
+    public string GetValueWithDollarSign(ResultStatisticsDto resultStatisticsDto, string propertyName)
+    {
+        var property = resultStatisticsDto.GetType().GetProperty(propertyName);
+        if (property != null)
+        {
+            var value = property.GetValue(resultStatisticsDto);
+            if (value is decimal)
+            {
+                int integerValue = (int)Math.Truncate((decimal)value);
+                return $"{integerValue} $";
+            }
+            else
+            {
+                return $"# {value?.ToString()}";
+            }
+        }
+        return string.Empty;
+    }
+}
+
+
+
+
+
+
+
+

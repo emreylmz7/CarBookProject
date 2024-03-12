@@ -1,7 +1,7 @@
 ﻿
 namespace CarBookProject.Dto.Dtos.Testimonial
 {
-    public class ResultTestimonialDto
+    public class UpdateTestimonialDto
     {
         public int TestimonialId { get; set; }
         public string? Name { get; set; }

@@ -1,0 +1,46 @@
+﻿@model UpdateTestimonialDto
+
+@{
+    ViewData["Title"] = "UpdateTestimonial";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Update Testimonial</h4>
+                        <p class="card-subtitle mb-4">Please provide all the essential details about the testimonial. After completing the data entries, finalize the process by clicking the save button.</p>
+
+                        <form method="post">
+                            <input type="hidden" asp-for="TestimonialId">
+
+                            <div class="form-group">
+                                <label for="Name">Name</label>
+                                <input type="text" class="form-control" id="Name" asp-for="Name" placeholder="Enter Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="Title">Title</label>
+                                <input type="text" class="form-control" id="Title" asp-for="Title" placeholder="Enter Title">
+                            </div>
+                            <div class="form-group">
+                                <label for="Comment">Comment</label>
+                                <textarea class="form-control" id="Comment" asp-for="Comment" placeholder="Enter Comment"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="ImageUrl">Image URL</label>
+                                <input type="text" class="form-control" id="ImageUrl" asp-for="ImageUrl" placeholder="Enter Image URL">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
