@@ -17,6 +17,8 @@ using CarBookProject.Application.Interfaces.CommentInterfaces;
 using CarBookProject.Persistence.Repositories.CommentRepositories;
 using CarBookProject.Application.Interfaces.StatisticsInterfaces;
 using CarBookProject.Persistence.Repositories.StatisticsRepositories;
+using CarBookProject.Application.Interfaces.RentACarInterfaces;
+using CarBookProject.Persistence.Repositories.RentACarRepositories;
 
 namespace CarBookProject.WebApi.Extensions
 {
@@ -31,6 +33,7 @@ namespace CarBookProject.WebApi.Extensions
             services.AddScoped(typeof(ICommentRepository), typeof(CommentRepository));
             services.AddScoped(typeof(ICarPricingRepository), typeof(CarPricingRepository));
             services.AddScoped(typeof(IStatisticsRepository), typeof(StatisticsRepository));
+            services.AddScoped(typeof(IRentACarRepository), typeof(RentACarRepository));
 
             services.AddScoped<GetAboutQueryHandler>();
             services.AddScoped<GetAboutByIdQueryHandler>();

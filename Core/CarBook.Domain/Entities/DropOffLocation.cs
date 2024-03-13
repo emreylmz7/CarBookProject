@@ -1,11 +1,10 @@
 ﻿
 namespace CarBook.Domain.Entities
 {
-    public class Location
+    public class DropOffLocation
     {
-        public int LocationId { get; set; }
+        public int DropOffLocationId { get; set; }
         public string? Name { get; set; }
-        public List<RentACar>? RentACars { get; set; }
         public List<RentACarProcess>? RentACarProcesses { get; set; }
     }
 }
