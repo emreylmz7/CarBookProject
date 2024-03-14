@@ -1,13 +1,58 @@
-﻿
+﻿@model List<FilterRentACarDto>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/UILayout/Index.cshtml";
 }
 
-<h1>Index</h1>
-<h2>@ViewBag.PickupLocation </h2>
-<h2>@ViewBag.DropoffLocation</h2>
-<h2>@ViewBag.PickupDate</h2>
-<h2>@ViewBag.DropoffDate</h2>
-<h2>@ViewBag.PickupTime </h2>
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-12">
+                    <div class="car-wrap rounded ftco-animate d-flex">
+                        <div class="img rounded" style="background-image: url(@item.CoverImageUrl); width: 40%;"></div>
+                        <div class="text pl-4 d-flex flex-column justify-content-between" style="width: 60%;">
+                            <div>
+                                <h2 class="mb-0" style="font-size: 24px;"><a href="/Car/CarDetail/@item.CarId">@item.Model</a></h2>
+                                <div class="d-flex mb-3">
+                                    <span class="cat" style="font-size: 18px;">@item.BrandName</span>
+                                    <p class="price ml-auto" style="font-size: 18px;">@item.HourlyPrice.ToString("0")$ <span>/hour</span></p>
+                                </div>
+                                <div class="d-flex">
+                                    <div class="mr-4">
+                                        <i class="icon-tachometer"></i>
+                                        <span>@item.Km Km</span>
+                                    </div>
+                                    <div class="mr-4">
+                                        <i class="icon-cogs"></i>
+                                        <span>@item.TransmissionType</span>
+                                    </div>
+                                    <div class="mr-4">
+                                        <i class="icon-local_gas_station"></i>
+                                        <span>@item.Fuel</span>
+                                    </div>
+                                    <div>
+                                        <i class="icon-user-circle"></i>
+                                        <span>21+ Age</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-auto">
+                                <p class="d-flex mb-0 d-block">
+                                    <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+                                    <a href="/Car/CarDetail/@item.CarId" class="btn btn-secondary py-2 ml-1">Details</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+
 

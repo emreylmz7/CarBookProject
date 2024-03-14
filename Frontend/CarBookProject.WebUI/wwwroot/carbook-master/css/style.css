@@ -8486,16 +8486,17 @@ h1, h2, h3, h4, h5,
     font-size: 12px;
     text-transform: uppercase;
     font-weight: 600; }
-  .request-form .form-control {
-    border: transparent !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    height: 40px !important;
-    background: transparent !important;
-    color: rgba(255, 255, 255, 0.7) !important;
-    font-size: 12px;
-    border-radius: 0px;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important; }
+    .request-form .form-control {
+        border: transparent !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        height: 40px !important;
+        background: #1089FF !important;
+        color: white;
+        font-size: 12px;
+        border-radius: 0px;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+    }
     .request-form .form-control::-webkit-input-placeholder {
       /* Chrome/Opera/Safari */
       color: rgba(255, 255, 255, 0.7); }

@@ -1,7 +1,7 @@
 ﻿
-namespace CarBookProject.Application.Features.Mediator.Results.RentACarResults
+namespace CarBookProject.Dto.Dtos.RentACar
 {
-    public class GetRentACarQueryResult
+    public class FilterRentACarDto
     {
         public int CarId { get; set; }
         public int BrandId { get; set; }

@@ -19,6 +19,5 @@ namespace CarBookProject.Persistence.Repositories.RentACarRepositories
             var values = await _context.RentACars.Where(filter).ToListAsync();
             return values;
         }
-
     }
 }
