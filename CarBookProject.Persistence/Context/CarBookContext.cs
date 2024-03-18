@@ -10,6 +10,21 @@ namespace CarBookProject.Persistence.Context
             optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=CarBookDb;Trusted_Connection=True;TrustServerCertificate=True");
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Reservation>()
+                .HasOne(x => x.PickupLocation)
+                .WithMany(y => y.PickUpReservations)
+                .HasForeignKey(x => x.PickupLocationId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Reservation>()
+                .HasOne(x => x.DropOffLocation)
+                .WithMany(y => y.DropOffReservations)
+                .HasForeignKey(x => x.DropOffLocationId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+        }
+
         public DbSet<About> Abouts { get; set; }
         public DbSet<Banner> Banners { get; set; }
         public DbSet<Brand> Brands { get; set; }
@@ -33,5 +48,6 @@ namespace CarBookProject.Persistence.Context
         public DbSet<RentACar> RentACars { get; set; }
         public DbSet<RentACarProcess> RentACarProcesses { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
     }
 }

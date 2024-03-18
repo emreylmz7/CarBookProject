@@ -3,11 +3,110 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/UILayout/Index.cshtml";
+
+    string pickupDate = ViewBag.PickDate != null ? ViewBag.PickDate.ToString() : "";
+    string dropoffDate = ViewBag.DropDate != null ? ViewBag.DropDate.ToString() : "";
+    string locationId = ViewBag.LocationId.ToString();
+    string dropOffLocationId = ViewBag.DropOffLocationId.ToString();
 }
 
-<section class="ftco-section bg-light">
+<style>
+    .car-wrap .img {
+        height: 270px;
+    }
+</style>
+
+
+<section class="ftco-section ftco-no-pt bg-light">
     <div class="container">
-        <div class="row">
+        <div class="row no-gutters">
+            <div class="col-md-12 featured-top">
+
+                <form method="post" class="request-form ftco-animate bg-primary">
+                    <h2 class="text-white text-center">Search Filter</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label for="" class="label">Pick-up location</label>
+                                <select id="locationId" name="locationId" class="form-control">
+                                    <option value="">Select Pick-up Location</option>
+                                    @if (ViewBag.Locations != null)
+                                    {
+                                        var pickUpLocations = ViewBag.Locations as List<SelectListItem>;
+                                        if (pickUpLocations != null)
+                                        {
+                                            foreach (var item in pickUpLocations)
+                                            {
+                                                <option value="@item.Value" selected="@(item.Value == locationId ? "selected" : null)">@item.Text</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="label">Drop-off location</label>
+                                <select id="DropOffLocationId" name="DropOffLocationId" class="form-control">
+                                    <option value="">Select Drop-Off Location</option>
+                                    @if (ViewBag.Locations != null)
+                                    {
+                                        var dropOffLocations = ViewBag.Locations as List<SelectListItem>;
+                                        if (dropOffLocations != null)
+                                        {
+                                            foreach (var item in dropOffLocations)
+                                            {
+                                                <option value="@item.Value" selected="@(item.Value == dropOffLocationId ? "selected" : null)">@item.Text</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-1">
+                            <div class="d-flex">
+                                <div class="form-group mr-2">
+                                    <label for="book_pick_date" class="label text-white">Pick-up date</label>
+                                    <input type="date" class="form-control" value="@ViewBag.PickDate" name="book_pick_date" id="book_pick_date">
+                                </div>
+                                <div class="form-group ml-2">
+                                    <label for="book_off_date" class="label text-white">Drop-off date</label>
+                                    <input type="date" class="form-control" value="@ViewBag.DropDate" name="book_off_date" id="book_off_date">
+                                </div>
+                            </div>
+
+                            <div class="d-flex">
+                                <div class="form-group mr-2">
+                                    <label for="time_pick" class="label text-white">Pick-up time</label>
+                                    <input type="text" class="form-control" value="@ViewBag.PickTime" name="time_pick" id="time_pick" placeholder="Enter pick-up time">
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="label">Drop-off time</label>
+                                    <select class="form-control" name="time_drop" id="time_drop">
+                                        <option value="">Select drop-off time</option>
+                                        @for (int hour = 9; hour <= 18; hour++)
+                                        {
+                                            for (int minute = 0; minute <= 30; minute += 30)
+                                            {
+                                                <option value="@hour.ToString("D2"):@minute.ToString("D2")" selected="@(ViewBag.DropTime == $"{hour:D2}:{minute:D2}" ? "selected" : null)">@hour.ToString("D2"):@minute.ToString("D2")</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Search" class="btn btn-secondary py-3 px-4">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <p class="text-left ml-3">Total @Model.Count results found.</p>
             @foreach (var item in Model)
             {
                 <div class="col-md-12">
@@ -41,7 +140,16 @@
                             </div>
                             <div class="mt-auto">
                                 <p class="d-flex mb-0 d-block">
-                                    <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+                                    <form id="bookNowForm" method="post" asp-action="GetForReservation">
+                                        <input type="hidden" name="CarId" value="@item.CarId" />
+                                        <input type="hidden" name="PickupLocationId" value="@locationId" />
+                                        <input type="hidden" name="DropOffLocationId" value="@dropOffLocationId" />
+                                        <input type="hidden" name="PreferredPickupDate" value="@ViewBag.PickDate.ToString("dd/MM/yyyy")" />
+                                        <input type="hidden" name="PreferredDropOffDate" value="@ViewBag.DropDate.ToString("dd/MM/yyyy")" />
+                                        <button type="submit" class="btn btn-primary py-2 mr-1">Book now</button>
+                                    </form>
+
+
                                     <a href="/Car/CarDetail/@item.CarId" class="btn btn-secondary py-2 ml-1">Details</a>
                                 </p>
                             </div>
@@ -52,7 +160,3 @@
         </div>
     </div>
 </section>
-
-
-
-

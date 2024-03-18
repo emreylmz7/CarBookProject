@@ -315,12 +315,12 @@
 
 
 	$('#book_pick_date,#book_off_date').datepicker({
-	  'format': 'm/d/yyyy',
-	  'autoclose': true
+		'format': 'm/d/yyyy',
+		'autoclose': true
 	});
-	$('#time_pick').timepicker();
-
-
+	$('#time_pick','#time_drop').timepicker({
+		'autoclose': true
+	});
 
 })(jQuery);
 

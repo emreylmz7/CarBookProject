@@ -1,4 +1,4 @@
-﻿@model ResultLocationDto
+﻿@model SearchRentACarDto
 @{
     ViewData["Title"] = "Index";
     Layout = null;
@@ -17,26 +17,42 @@
     <section class="ftco-section ftco-no-pt bg-light">
         <div class="container">
             <div class="row no-gutters">
-                <div class="col-md-12	featured-top">
+                <div class="col-md-12 featured-top">
                     <div class="row no-gutters">
                         <div class="col-md-4 d-flex align-items-center">
 
-                            <form method="post" class="request-form ftco-animate bg-primary">
+                            <form method="post" id="rentCarForm" class="request-form ftco-animate bg-primary">
 
                                 <h2>Make your trip</h2>
                                 
                                 <div class="form-group">
                                     <label for="" class="label">Pick-up location</label>
-                                    @Html.DropDownListFor(x => x.LocationId, (List<SelectListItem>)ViewBag.Locations, new { @class = "form-control", name="locationId"})
+                                    @* @Html.DropDownListFor(x => x.LocationId, (List<SelectListItem>)ViewBag.Locations, new { @class = "form-control", name="locationId"}) *@
+
+                                    <select asp-for="LocationId" id="locationId" name="locationId" class="form-control">
+                                        <option value="">Select Pick-up Location</option>
+                                        @if (ViewBag.Locations != null)
+                                        {
+                                            var pickupLocations = ViewBag.Locations as List<SelectListItem>;
+                                            if (pickupLocations != null)
+                                            {
+                                                foreach (var item in pickupLocations)
+                                                {
+                                                    <option value="@item.Value">@item.Text</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                    <span asp-validation-for="LocationId" class="text-danger small text-muted"></span>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="" class="label">Drop-off location</label>
                                     <select id="DropOffLocationId" name="DropOffLocationId" class="form-control">
                                         <option value="">Select Drop-Off Location</option>
-                                        @if (ViewBag.DropOffLocations != null)
+                                        @if (ViewBag.Locations != null)
                                         {
-                                            var dropOffLocations = ViewBag.DropOffLocations as List<SelectListItem>;
+                                            var dropOffLocations = ViewBag.Locations as List<SelectListItem>;
                                             if (dropOffLocations != null)
                                             {
                                                 foreach (var item in dropOffLocations)
@@ -46,25 +62,30 @@
                                             }
                                         }
                                     </select>
+                                    <span asp-validation-for="DropOffLocationId" class="text-danger small text-muted"></span>
                                 </div>
 
                                 <div class="d-flex">
                                     <div class="form-group mr-2">
                                         <label for="" class="label">Pick-up date</label>
-                                        <input type="text" class="form-control" name="book_pick_date" id="book_pick_date" placeholder="Date">
+                                        <input asp-for="BookPickDate" class="form-control" >
+                                        <span asp-validation-for="BookPickDate" class="text-danger small text-muted"></span>
                                     </div>
                                     <div class="form-group ml-2">
                                         <label for="" class="label">Drop-off date</label>
-                                        <input type="text" class="form-control" name="book_off_date" id="book_off_date" placeholder="Date">
+                                        <input asp-for="BookOffDate" class="form-control">
+                                        <span asp-validation-for="BookOffDate" class="text-danger small text-muted"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="" class="label">Pick-up time</label>
-                                    <input type="text" class="form-control" name="time_pick" id="time_pick" placeholder="Time">
+                                    <label class="label">Pick-up time</label>
+                                    <input asp-for="TimePick" class="form-control" >
+                                    <span asp-validation-for="TimePick" class="text-danger small text-muted"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="" class="label">Drop-off time</label>
-                                    <input type="text" class="form-control" name="time_drop" id="time_pick" placeholder="Time">
+                                    <label class="label">Drop-off time</label>
+                                    <input asp-for="TimeDrop" class="form-control">
+                                    <span asp-validation-for="TimeDrop" class="text-danger small text-muted"></span>
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4">
@@ -106,8 +127,8 @@
                     </div>
                 </div>
             </div>
+        </div>
     </section>
-
 
     @await Component.InvokeAsync("_DefaulGetLast5CarComponentPartial")
 
