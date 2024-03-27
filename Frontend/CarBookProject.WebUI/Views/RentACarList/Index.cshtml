@@ -22,7 +22,7 @@
         <div class="row no-gutters">
             <div class="col-md-12 featured-top">
 
-                <form method="post" class="request-form ftco-animate bg-primary">
+                <form method="post" asp-action="Index" class="request-form ftco-animate bg-primary">
                     <h2 class="text-white text-center">Search Filter</h2>
                     <div class="row">
                         <div class="col-md-6">
@@ -67,23 +67,23 @@
                         <div class="col-md-6 mt-1">
                             <div class="d-flex">
                                 <div class="form-group mr-2">
-                                    <label for="book_pick_date" class="label text-white">Pick-up date</label>
-                                    <input type="date" class="form-control" value="@ViewBag.PickDate" name="book_pick_date" id="book_pick_date">
+                                    <label for="bookpickdate" class="label text-white">Pick-up date</label>
+                                    <input type="date" class="form-control" value="@ViewBag.PickDate" name="bookpickdate" id="bookpickdate">
                                 </div>
                                 <div class="form-group ml-2">
-                                    <label for="book_off_date" class="label text-white">Drop-off date</label>
-                                    <input type="date" class="form-control" value="@ViewBag.DropDate" name="book_off_date" id="book_off_date">
+                                    <label for="bookoffdate" class="label text-white">Drop-off date</label>
+                                    <input type="date" class="form-control" value="@ViewBag.DropDate" name="bookoffdate" id="bookoffdate">
                                 </div>
                             </div>
 
                             <div class="d-flex">
                                 <div class="form-group mr-2">
-                                    <label for="time_pick" class="label text-white">Pick-up time</label>
-                                    <input type="text" class="form-control" value="@ViewBag.PickTime" name="time_pick" id="time_pick" placeholder="Enter pick-up time">
+                                    <label for="timepick" class="label text-white">Pick-up time</label>
+                                    <input type="text" class="form-control" value="@ViewBag.PickTime" name="timepick" id="timepick" placeholder="Enter pick-up time">
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="label">Drop-off time</label>
-                                    <select class="form-control" name="time_drop" id="time_drop">
+                                    <select class="form-control" name="timedrop" id="timedrop">
                                         <option value="">Select drop-off time</option>
                                         @for (int hour = 9; hour <= 18; hour++)
                                         {
@@ -138,21 +138,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mt-auto">
-                                <p class="d-flex mb-0 d-block">
-                                    <form id="bookNowForm" method="post" asp-action="GetForReservation">
+
+                            <form id="bookNowForm" method="post" asp-action="GetForReservation">
+                                <div class="mt-auto">
+                                    <p class="d-flex mb-0 d-block">
+                                    
                                         <input type="hidden" name="CarId" value="@item.CarId" />
                                         <input type="hidden" name="PickupLocationId" value="@locationId" />
                                         <input type="hidden" name="DropOffLocationId" value="@dropOffLocationId" />
                                         <input type="hidden" name="PreferredPickupDate" value="@ViewBag.PickDate.ToString("dd/MM/yyyy")" />
                                         <input type="hidden" name="PreferredDropOffDate" value="@ViewBag.DropDate.ToString("dd/MM/yyyy")" />
-                                        <button type="submit" class="btn btn-primary py-2 mr-1">Book now</button>
-                                    </form>
 
+                                        <button type="submit" class="btn btn-primary py-2 mr-1 ">Book now</button>
+                                        <button type="button" onclick="window.location.href='/Car/CarDetail/@item.CarId'" class="btn btn-secondary py-2 ml-1">Details</button>
 
-                                    <a href="/Car/CarDetail/@item.CarId" class="btn btn-secondary py-2 ml-1">Details</a>
-                                </p>
-                            </div>
+                                        @* <a href="/Car/CarDetail/@item.CarId" class="btn btn-secondary py-2 ml-1 btn-block">Details</a> *@
+                                    </p>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

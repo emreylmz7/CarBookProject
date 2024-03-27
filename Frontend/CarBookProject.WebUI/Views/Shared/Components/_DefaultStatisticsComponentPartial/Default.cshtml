@@ -1,4 +1,4 @@
-﻿
+﻿@model ResultStatisticsDto
 
 <section class="ftco-counter ftco-section img bg-light" id="section-counter">
     <div class="overlay"></div>
@@ -7,15 +7,15 @@
             <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
                 <div class="block-18">
                     <div class="text text-border d-flex align-items-center">
-                        <strong class="number" data-number="60">0</strong>
-                        <span>Year <br>Experienced</span>
+                        <strong class="number" data-number="@Model.TotalLocationCount">0</strong>
+                        <span>Our <br>Locations</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
                 <div class="block-18">
                     <div class="text text-border d-flex align-items-center">
-                        <strong class="number" data-number="1090">0</strong>
+                        <strong class="number" data-number="@Model.TotalCarCount">0</strong>
                         <span>Total <br>Cars</span>
                     </div>
                 </div>
@@ -23,16 +23,16 @@
             <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
                 <div class="block-18">
                     <div class="text text-border d-flex align-items-center">
-                        <strong class="number" data-number="2590">0</strong>
-                        <span>Happy <br>Customers</span>
+                        <strong class="number" data-number="@Model.TotalBrandCount">0</strong>
+                        <span>Total <br>Brands</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
                 <div class="block-18">
                     <div class="text d-flex align-items-center">
-                        <strong class="number" data-number="67">0</strong>
-                        <span>Total <br>Branches</span>
+                        <strong class="number" data-number="@Model.ElectricCarCount">0</strong>
+                        <span>Electricy <br>Cars</span>
                     </div>
                 </div>
             </div>

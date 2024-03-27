@@ -1,5 +1,4 @@
-﻿using CarBookProject.Dto.Dtos.DropOffLocation;
-using CarBookProject.Dto.Dtos.Location;
+﻿using CarBookProject.Dto.Dtos.Location;
 using CarBookProject.Dto.Dtos.RentACar;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -53,7 +52,8 @@ namespace CarBookProject.WebUI.Controllers
 
             // Cars
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:44335/api/RentACars?locationId={id}&available=true");
+
+            var responseMessage = await client.GetAsync($"https://localhost:44335/api/RentACars/GetRentACarListByLocation?locationId={id}&available=true");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -64,14 +64,14 @@ namespace CarBookProject.WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string locationId, string DropOffLocationId, string book_pick_date, string book_off_date, string time_pick, string time_drop)
+        public IActionResult Index(string locationId, string DropOffLocationId, string bookpickdate, string bookoffdate, string timepick, string timedrop)
         {
             TempData["locationId"] = locationId;
             TempData["DropOffLocationId"] = DropOffLocationId;
-            TempData["bookpickdate"] = book_pick_date;
-            TempData["bookoffdate"] = book_off_date;
-            TempData["timepick"] = time_pick;
-            TempData["timedrop"] = time_drop;
+            TempData["bookpickdate"] = bookpickdate;
+            TempData["bookoffdate"] = bookoffdate;
+            TempData["timepick"] = timepick;
+            TempData["timedrop"] = timedrop;
             return RedirectToAction("Index", "RentACarList");
         }
 
