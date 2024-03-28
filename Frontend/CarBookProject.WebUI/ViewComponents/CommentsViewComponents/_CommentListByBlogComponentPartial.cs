@@ -1,8 +1,6 @@
-﻿using CarBookProject.Dto.Dtos.Blog;
-using CarBookProject.Dto.Dtos.Comment;
+﻿using CarBookProject.Dto.Dtos.Comment;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace CarBookProject.WebUI.ViewComponents.CommentsViewComponents
 {
