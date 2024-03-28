@@ -28,6 +28,7 @@
                                         <th>Kilometers</th>
                                         <th>Delete</th>
                                         <th>Update</th>
+                                        <th>Features</th>
                                         <th>Details</th>
                                     </tr>
                                 </thead>
@@ -44,6 +45,7 @@
                                             <td>@car.Km</td>
                                             <td><a href="/AdminCar/RemoveCar/@car.CarId" class="btn btn-outline-danger">Delete</a></td>
                                             <td><a href="/AdminCar/UpdateCar/@car.CarId" class="btn btn-outline-success">Update</a></td>
+                                            <td><a href="/Admin/AdminCarFeatureDetail/Index/@car.CarId" class="btn btn-outline-warning">Features</a></td>
                                             <td><a href="/Car/CarDetail/@car.CarId" class="btn btn-outline-dark">Detail</a></td>
                                         
                                         </tr>

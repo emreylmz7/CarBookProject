@@ -19,6 +19,8 @@ using CarBookProject.Application.Interfaces.StatisticsInterfaces;
 using CarBookProject.Persistence.Repositories.StatisticsRepositories;
 using CarBookProject.Application.Interfaces.RentACarInterfaces;
 using CarBookProject.Persistence.Repositories.RentACarRepositories;
+using CarBookProject.Application.Interfaces.CarFeatureInterfaces;
+using CarBookProject.Persistence.Repositories.CarFeatureRepositories;
 
 namespace CarBookProject.WebApi.Extensions
 {
@@ -34,6 +36,7 @@ namespace CarBookProject.WebApi.Extensions
             services.AddScoped(typeof(ICarPricingRepository), typeof(CarPricingRepository));
             services.AddScoped(typeof(IStatisticsRepository), typeof(StatisticsRepository));
             services.AddScoped(typeof(IRentACarRepository), typeof(RentACarRepository));
+            services.AddScoped(typeof(ICarFeatureRepository), typeof(CarFeatureRepository));
 
             services.AddScoped<GetAboutQueryHandler>();
             services.AddScoped<GetAboutByIdQueryHandler>();
