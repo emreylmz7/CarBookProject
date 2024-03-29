@@ -1,0 +1,79 @@
+﻿@using CarBookProject.Dto.Enums
+@model List<ResultReservationWithInfoDto>
+
+<div class="col-xl-6">
+    <div class="card">
+        <div class="card-body">
+
+            <h4 class="card-title">Recent Rentals</h4>
+            <p class="card-subtitle mb-4 font-size-13">
+                Recent Rentals from 2024
+            </p>
+
+            <div class="table-responsive">
+                <table class="table table-centered table-hover table-xl mb-0" id="recent-orders">
+                    <thead>
+                        <tr>
+                            <th class="border-top-0">Customers</th>
+                            <th class="border-top-0">Pick-up Location</th>
+                            <th class="border-top-0">Drop-Off Location</th>
+                            <th class="border-top-0">Car Model</th>
+                            <th class="border-top-0">Status</th>
+                            <th class="border-top-0">Total Rent Day</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var item in Model)
+                        {
+                            <tr>
+                                <td class="text-truncate">@item.Name</td>
+                                <td class="text-truncate">@item.PickupLocation</td>
+                                <td class="text-truncate">@item.DropOffLocation</td>
+                                <td>
+                                    <span class="badge badge-soft-secondary p-2">@item.CarName</span>
+                                </td>
+                                <td>
+                                    <div class="progress" style="height: 6px;">
+                                        @if(item.Status == ReservationStatus.Pending)
+                                        {
+                                            <div class="progress-bar progress-bar-striped bg-warning"
+                                                 role="progressbar" aria-valuenow="85"
+                                                 aria-valuemin="20" aria-valuemax="100"
+                                                 style="width:85%">
+                                            </div>
+                                        }
+                                        else if (item.Status == ReservationStatus.Cancelled)
+                                        {
+                                            <div class="progress-bar progress-bar-striped bg-danger"
+                                                 role="progressbar" aria-valuenow="85"
+                                                 aria-valuemin="20" aria-valuemax="100"
+                                                 style="width:85%">
+                                            </div>
+                                        }
+                                        else if (item.Status == ReservationStatus.Completed)
+                                        {
+                                            <div class="progress-bar progress-bar-striped bg-success"
+                                                 role="progressbar" aria-valuenow="85"
+                                                 aria-valuemin="20" aria-valuemax="100"
+                                                 style="width:85%">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="progress-bar progress-bar-striped bg-secondary"
+                                                role="progressbar" aria-valuenow="85"
+                                                aria-valuemin="20" aria-valuemax="100"
+                                                style="width:85%">
+                                            </div>
+                                        }
+
+                                    </div>
+                                </td>
+                                <td class="text-truncate">@item.TotalRentDay Day</td>
+                            </tr>
+                        }
+                </table>
+            </div>
+        </div> 
+    </div> 
+</div>

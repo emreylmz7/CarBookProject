@@ -4,7 +4,6 @@ using CarBookProject.Application.Features.Mediator.Queries.ReservationQueries;
 using CarBookProject.Application.Features.Mediator.Results.ReservationResults;
 using CarBookProject.Application.Interfaces;
 using MediatR;
-using System.Collections.Generic;
 
 namespace CarBookProject.Application.Features.Mediator.Handlers.ReservationHandlers
 {

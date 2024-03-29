@@ -14,6 +14,18 @@ namespace CarBookProject.WebApi.Mappings
             CreateMap<UpdateReservationCommand, Reservation>().ReverseMap();
             CreateMap<GetReservationByIdQueryResult, Reservation>().ReverseMap();
             CreateMap<GetReservationQueryResult, Reservation>().ReverseMap();
+            CreateMap<Reservation, GetReservationsWithInfoQueryResult>()
+                .ForMember(dest => dest.CarName, opt => opt.MapFrom(src => src.Car!.Model))
+                .ForMember(dest => dest.PickupLocation, opt => opt.MapFrom(src => src.PickupLocation!.Name))
+                .ForMember(dest => dest.DropOffLocation, opt => opt.MapFrom(src => src.DropOffLocation!.Name))
+                .ForMember(dest => dest.TotalRentDay, opt => opt.MapFrom(src => CalculateTotalRentDay(src)))
+                .ReverseMap();
         }
+
+        private int CalculateTotalRentDay(Reservation reservation)
+        {
+            return (reservation.PreferredDropOffDate.Date - reservation.PreferredPickupDate.Date).Days;
+        }
+
     }
 }

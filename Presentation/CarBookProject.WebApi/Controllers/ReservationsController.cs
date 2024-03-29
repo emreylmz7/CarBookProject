@@ -50,5 +50,12 @@ namespace CarBookProject.WebApi.Controllers
             await _mediator.Send(command);
             return Ok("Reservation updated successfully");
         }
+
+        [HttpGet("GetReservationsWithInfo")]
+        public async Task<IActionResult> GetReservationsWithInfo()
+        {
+            var reservations = await _mediator.Send(new GetReservationsWithInfoQuery());
+            return Ok(reservations);
+        }
     }
 }
