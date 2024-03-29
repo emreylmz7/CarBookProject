@@ -7,26 +7,46 @@
 <div class="page-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow">
+                    <div class="card-header ">
+                        <h4 class="card-title">Car Features List</h4>
+                        <p class="card-subtitle mb-0">Manage Car Features</p>
+                    </div>
                     <div class="card-body">
-                        <h4 class="card-title">Car Feature List</h4>
-                        <p class="card-subtitle mb-4">
-                            You can perform transactions related to Car Features on this page.
-                        </p>
                         <form method="post">
-                            @for (int i = 0; i < Model.Count; i++)
-                            {
-                                <div class="form-check">
-                                    <input type="hidden" asp-for="@Model[i].CarFeatureId" />
-                                    <input type="hidden" asp-for="@Model[i].FeatureId" />
-                                    <input type="hidden" asp-for="@Model[i].CarId" />
-                                    <input type="hidden" asp-for="@Model[i].FeatureName" />
-                                    <input type="checkbox" asp-for="@Model[i].Available" class="form-check-input" />
-                                    <label class="form-check-label" for="@Model[i].Available">@Model[i].FeatureName</label>
-                                </div>
-                            }
-                            <button class="btn btn-success mt-3">Save Changes</button>
+                            <div class="list-group">
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+                                    <div class="list-group-item">
+                                        <input type="hidden" asp-for="@Model[i].CarFeatureId" />
+                                        <input type="hidden" asp-for="@Model[i].FeatureId" />
+                                        <input type="hidden" asp-for="@Model[i].CarId" />
+                                        <input type="hidden" asp-for="@Model[i].FeatureName" />
+                                        <div class="form-check">
+                                            <input type="checkbox" asp-for="@Model[i].Available" class="form-check-input" id="feature_@i" />
+                                            <label class="form-check-label" for="feature_@i">@Model[i].FeatureName</label>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card mt-4 shadow">
+                    <div class="card-header">
+                        <h4 class="card-title">Add New Car Feature</h4>
+                        <p class="card-subtitle mb-0">Add Feature to Car in this section</p>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" asp-action="AddFeature" asp-controller="AdminCarFeatureDetail" asp-area="Admin">
+                            <input type="hidden" name="CarId" id="CarId" value="@ViewBag.CarId" />
+                            <div class="form-group">
+                                <label for="FeatureId">Feature Name</label>
+                                @Html.DropDownList("FeatureId", ViewBag.Features as List<SelectListItem>, "Select Feature", new { @class = "form-control", id = "FeatureId" })
+                            </div>
+                            <button type="submit" class="btn btn-success">Add Feature</button>
                         </form>
                     </div>
                 </div>
@@ -34,3 +54,7 @@
         </div>
     </div>
 </div>
+
+
+    
+

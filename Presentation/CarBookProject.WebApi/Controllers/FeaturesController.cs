@@ -30,6 +30,13 @@ namespace CarBookProject.WebApi.Controllers
             return Ok(values);
         }
 
+        [HttpGet("GetFeaturesNotInThisCar/{id}")]
+        public async Task<IActionResult> GetFeaturesNotInThisCar(int id)
+        {
+            var values = await _mediator.Send(new GetFeatureNotInThisCarQuery(id));
+            return Ok(values);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateFeature(CreateFeatureCommand command)
         {

@@ -14,6 +14,7 @@ namespace CarBookProject.WebApi.Mappings
             CreateMap<UpdateFeatureCommand, Feature>().ReverseMap();
             CreateMap<GetFeatureByIdQueryResult, Feature>().ReverseMap();
             CreateMap<GetFeatureQueryResult, Feature>().ReverseMap();
+            CreateMap<GetFeatureNotInThisCarQueryResult, Feature>().ReverseMap();
         }
     }
 }

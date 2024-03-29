@@ -25,7 +25,14 @@
 						{
 							<div class="col-md-4">
 								<ul class="features">
-									<li class="check"><span class="ion-ios-checkmark"></span>@item.FeatureName</li>
+									@if(item.Available)
+									{
+										<li class="check"><span class="ion-ios-checkmark"></span>@item.FeatureName</li>
+									}
+									else
+									{
+										<li class="remove"><span class="ion-ios-close"></span>@item.FeatureName</li>
+									}	
 								</ul>
 							</div>
 						}
