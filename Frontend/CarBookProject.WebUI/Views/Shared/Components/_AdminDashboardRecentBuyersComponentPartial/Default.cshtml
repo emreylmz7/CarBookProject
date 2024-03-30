@@ -33,41 +33,7 @@
                                     <span class="badge badge-soft-secondary p-2">@item.CarName</span>
                                 </td>
                                 <td>
-                                    <div class="progress" style="height: 6px;">
-                                        @if(item.Status == ReservationStatus.Pending)
-                                        {
-                                            <div class="progress-bar progress-bar-striped bg-warning"
-                                                 role="progressbar" aria-valuenow="85"
-                                                 aria-valuemin="20" aria-valuemax="100"
-                                                 style="width:85%">
-                                            </div>
-                                        }
-                                        else if (item.Status == ReservationStatus.Cancelled)
-                                        {
-                                            <div class="progress-bar progress-bar-striped bg-danger"
-                                                 role="progressbar" aria-valuenow="85"
-                                                 aria-valuemin="20" aria-valuemax="100"
-                                                 style="width:85%">
-                                            </div>
-                                        }
-                                        else if (item.Status == ReservationStatus.Completed)
-                                        {
-                                            <div class="progress-bar progress-bar-striped bg-success"
-                                                 role="progressbar" aria-valuenow="85"
-                                                 aria-valuemin="20" aria-valuemax="100"
-                                                 style="width:85%">
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="progress-bar progress-bar-striped bg-secondary"
-                                                role="progressbar" aria-valuenow="85"
-                                                aria-valuemin="20" aria-valuemax="100"
-                                                style="width:85%">
-                                            </div>
-                                        }
-
-                                    </div>
+                                    <span class="badge badge-@GetStatusColor(item.Status)">@GetStatusText(item.Status)</span>
                                 </td>
                                 <td class="text-truncate">@item.TotalRentDay Day</td>
                             </tr>
@@ -77,3 +43,40 @@
         </div> 
     </div> 
 </div>
+
+
+@functions {
+    string GetStatusColor(ReservationStatus status)
+    {
+        switch (status)
+        {
+            case ReservationStatus.Pending:
+                return "warning";
+            case ReservationStatus.Cancelled:
+                return "danger";
+            case ReservationStatus.Completed:
+                return "success";
+            case ReservationStatus.Confirmed:
+                return "primary";
+            default:
+                return "secondary";
+        }
+    }
+
+    string GetStatusText(ReservationStatus status)
+    {
+        switch (status)
+        {
+            case ReservationStatus.Pending:
+                return "Pending";
+            case ReservationStatus.Cancelled:
+                return "Cancelled";
+            case ReservationStatus.Completed:
+                return "Completed";
+            case ReservationStatus.Confirmed:
+                return "Confirmed";
+            default:
+                return "Unknown";
+        }
+    }
+}

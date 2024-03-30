@@ -80,15 +80,15 @@ $(function() {
       resize: true,
       colors: ['#7266bb', '#1d84c6', '#e9ecef'],
       data: [{
-          label: "Samsung Company",
+          label: "BMW",
           value: 12
         },
         {
-          label: "Apple Company",
-          value: 30
+          label: "Mercedes",
+          value: 16
         },
         {
-          label: "Vivo Mobiles",
+          label: "Fiat",
           value: 20
         }
       ]
