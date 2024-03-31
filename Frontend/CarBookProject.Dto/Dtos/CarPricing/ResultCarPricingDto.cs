@@ -1,7 +1,7 @@
 ﻿
-namespace CarBookProject.Application.Features.Mediator.Results.CarPricingResults
+namespace CarBookProject.Dto.Dtos.CarPricing
 {
-    public class GetCarPricingWithCarsQueryResult
+    public class ResultCarPricingDto
     {
         public int CarPricingId { get; set; }
         public int CarId { get; set; }

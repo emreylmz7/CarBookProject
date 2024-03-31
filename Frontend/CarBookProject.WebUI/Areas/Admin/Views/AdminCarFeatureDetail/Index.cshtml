@@ -26,6 +26,7 @@
                                         <div class="form-check">
                                             <input type="checkbox" asp-for="@Model[i].Available" class="form-check-input" id="feature_@i" />
                                             <label class="form-check-label" for="feature_@i">@Model[i].FeatureName</label>
+                                            <a href="/Admin/AdminCarFeatureDetail/RemoveCarFeatureDetail/@Model[i].CarFeatureId" class="btn btn-danger btn-sm float-right"><i class="fas fa-trash"></i></a>
                                         </div>
                                     </div>
                                 }

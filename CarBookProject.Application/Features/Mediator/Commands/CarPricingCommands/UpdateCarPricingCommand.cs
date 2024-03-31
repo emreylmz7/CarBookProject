@@ -1,13 +1,12 @@
-﻿
-namespace CarBook.Domain.Entities
+﻿using MediatR;
+
+namespace CarBookProject.Application.Features.Mediator.Commands.CarPricingCommands
 {
-    public class CarPricing
+    public class UpdateCarPricingCommand : IRequest
     {
         public int CarPricingId { get; set; }
         public int CarId { get; set; }
-        public Car? Car { get; set; }
         public int PricingId { get; set; }
-        public Pricing? Pricing { get; set; }
         public decimal Amount { get; set; }
     }
 }

@@ -2,7 +2,6 @@
 using CarBookProject.Application.Interfaces.CarInterfaces;
 using CarBookProject.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic; // Don't forget to include this namespace
 
 namespace CarBookProject.Persistence.Repositories.CarRepositories
 {
@@ -15,9 +14,29 @@ namespace CarBookProject.Persistence.Repositories.CarRepositories
             _context = context;
         }
 
+        public async Task CreateCarAsync(Car car)
+        {
+            _context.Cars.Add(car);
+            await _context.SaveChangesAsync(); // Arabayı veritabanına kaydet
+
+            // Araba kaydedildikten sonra, CarId'sini al
+            var carId = car.CarId;
+
+            var carPricings = new List<CarPricing>
+            {
+                new CarPricing { CarId = carId, PricingId = 2, Amount = 100 },
+                new CarPricing { CarId = carId, PricingId = 3, Amount = 300 },
+                new CarPricing { CarId = carId, PricingId = 4, Amount = 500 },
+                new CarPricing { CarId = carId, PricingId = 5, Amount = 800 }
+            };
+
+            _context.CarPricings.AddRange(carPricings);
+            await _context.SaveChangesAsync(); // Araba fiyatlandırmalarını veritabanına kaydet
+        }
+
+
         public List<Car> GetCarsWithBrands()
         {
-            // Include both Brand and CarPricing entities
             var carsWithBrandsAndPricing = _context.Cars
                 .Include(x => x.Brand)
                 .Include(x => x.CarPricing)

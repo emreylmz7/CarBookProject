@@ -1,11 +1,8 @@
-﻿using CarBookProject.Dto.Dtos.Banner;
-using CarBookProject.Dto.Dtos.Brand;
-using CarBookProject.Dto.Dtos.CarFeature;
+﻿using CarBookProject.Dto.Dtos.CarFeature;
 using CarBookProject.Dto.Dtos.Feature;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
-using System.Net.Http;
 using System.Text;
 
 namespace CarBookProject.WebUI.Areas.Admin.Controllers
@@ -92,6 +89,19 @@ namespace CarBookProject.WebUI.Areas.Admin.Controllers
             }
             return Redirect($"/Admin/AdminCarFeatureDetail/Index/" + createCarFeatureDto.CarId);
 
+        }
+
+        [Route("RemoveCarFeatureDetail/{id}")]
+        [HttpGet]
+        public async Task<IActionResult> RemoveCarFeatureDetail(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.DeleteAsync($"https://localhost:44335/api/CarFeatures/{id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "AdminCar", new { area = "Admin" });
+            }
+            return View();
         }
     }
 }
