@@ -58,10 +58,9 @@ namespace CarBookProject.WebApi.Controllers
             return Ok("Car Pricing removed successfully");
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCarPricing(int id, UpdateCarPricingCommand command) 
+        [HttpPut]
+        public async Task<IActionResult> UpdateCarPricing(UpdateCarPricingCommand command) 
         {
-            command.CarPricingId = id; 
             await _mediator.Send(command);
             return Ok("Car Pricing updated successfully");
         }

@@ -19,6 +19,7 @@ namespace CarBookProject.WebApi.Mappings
                 .ForMember(dest => dest.Model, opt => opt.MapFrom(src => src.Car!.Model))
                 .ForMember(dest => dest.PricingName, opt => opt.MapFrom(src => src.Pricing!.Name))
                 .ForMember(dest => dest.CarId, opt => opt.MapFrom(src => src.Car!.CarId))
+                .ForMember(dest => dest.PricingId, opt => opt.MapFrom(src => src.PricingId))
                 .ReverseMap();
 
             CreateMap<CarPricing, GetCarPricingByCarIdQueryResult>()
@@ -26,6 +27,7 @@ namespace CarBookProject.WebApi.Mappings
                 .ForMember(dest => dest.Brand, opt => opt.MapFrom(src => src.Car!.Brand.Name))
                 .ForMember(dest => dest.Model, opt => opt.MapFrom(src => src.Car!.Model))
                 .ForMember(dest => dest.PricingName, opt => opt.MapFrom(src => src.Pricing!.Name))
+                .ForMember(dest => dest.PricingId, opt => opt.MapFrom(src => src.PricingId))
                 .ForMember(dest => dest.CarId, opt => opt.MapFrom(src => src.Car!.CarId))
                 .ReverseMap();
 
@@ -33,6 +35,7 @@ namespace CarBookProject.WebApi.Mappings
                 .ForMember(dest => dest.CoverImageUrl, opt => opt.MapFrom(src => src.Car!.CoverImageUrl))
                 .ForMember(dest => dest.Brand, opt => opt.MapFrom(src => src.Car!.Brand.Name))
                 .ForMember(dest => dest.Model, opt => opt.MapFrom(src => src.Car!.Model))
+                .ForMember(dest => dest.PricingId, opt => opt.MapFrom(src => src.PricingId))
                 .ForMember(dest => dest.CarId, opt => opt.MapFrom(src => src.Car!.CarId))
                 .ForMember(dest => dest.PricingName, opt => opt.MapFrom(src => src.Pricing!.Name))
                 .ReverseMap();
@@ -42,6 +45,7 @@ namespace CarBookProject.WebApi.Mappings
                 .ForMember(dest => dest.Brand, opt => opt.MapFrom(src => src.Car!.Brand.Name))
                 .ForMember(dest => dest.Model, opt => opt.MapFrom(src => src.Car!.Model))
                 .ForMember(dest => dest.CarId, opt => opt.MapFrom(src => src.Car!.CarId))
+                .ForMember(dest => dest.PricingId, opt => opt.MapFrom(src => src.PricingId))
                 .ForMember(dest => dest.PricingName, opt => opt.MapFrom(src => src.Pricing!.Name))
                 .ReverseMap();
         }

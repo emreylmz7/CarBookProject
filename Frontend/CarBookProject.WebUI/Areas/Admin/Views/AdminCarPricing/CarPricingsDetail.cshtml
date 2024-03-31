@@ -1,0 +1,85 @@
+﻿@model List<ResultCarPricingDto>
+
+@{
+    ViewData["Title"] = "CarPricingsDetail";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">@ViewBag.CarName Rental Prices</h4>
+                        <p class="card-subtitle mb-4">
+                            You can view and manage hourly, daily, weekly and monthly car prices.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Amount</th>
+                                        <th>Pricing Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.CarPricingId</td>
+                                            <td><strong>@item.Amount</strong> <i class="fas fa-dollar-sign text-success"></i></td>
+                                            <td>@item.PricingName</td>
+                                            <td>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#editModal_@item.CarPricingId">
+                                                    Update Amount
+                                                </button>
+
+                                                <div class="modal fade" id="editModal_@item.CarPricingId" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editModalLabel">Edit Price</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <form method="post" asp-action="CarPricingUpdate" asp-controller="AdminCarPricing" asp-area="Admin">
+                                                                <div class="modal-body">
+                                                                    <input type="hidden" name="CarPricingId" id="CarPricingId" value="@item.CarPricingId">
+                                                                    <input type="hidden" name="CarId" id="CarId" value="@item.CarId">
+                                                                    <input type="hidden" name="PricingId" id="PricingId" value="@item.PricingId">
+                                                                    <div class="form-group">
+                                                                        <label for="Amount">New Price:</label>
+                                                                        <input type="number" class="form-control" id="Amount" name="Amount" placeholder="Enter New Price" value="@item.Amount" autofocus>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#editModal').on('shown.bs.modal', function () {
+        $('#Amount').focus();
+    });
+</script>
+

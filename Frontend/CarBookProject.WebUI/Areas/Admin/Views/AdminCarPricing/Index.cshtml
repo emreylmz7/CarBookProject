@@ -42,13 +42,11 @@
                                             @foreach (var price in item)
                                             {
                                                 var roundedAmount = (int)Math.Floor(price.Amount); // Fiyatı tam sayıya dönüştürme
-                                                <td>@roundedAmount $</td>
+                                                <td> <strong>@roundedAmount</strong> <i class="fas fa-dollar-sign text-success"></i></td>
                                             }
 
                                             <td>
-                                                <a href="/Admin/AdminCarFeatureDetail/RemoveCarFeatureDetail/@item.Key.CarId" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                                <a href="/Admin/AdminCarFeatureDetail/RemoveCarFeatureDetail/@item.Key.CarId" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                                <a href="/Admin/AdminCarFeatureDetail/RemoveCarFeatureDetail/@item.Key.CarId" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                <a href="/Admin/AdminCarPricing/CarPricingsDetail/@item.Key.CarId" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
                                             </td>
                                         </tr>
                                     }
