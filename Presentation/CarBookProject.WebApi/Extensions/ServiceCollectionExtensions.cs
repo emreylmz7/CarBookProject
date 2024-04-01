@@ -25,6 +25,8 @@ using CarBookProject.Application.Interfaces.FeatureInterfaces;
 using CarBookProject.Persistence.Repositories.FeatureRepositories;
 using CarBookProject.Application.Interfaces.ReservationInterfaces;
 using CarBookProject.Persistence.Repositories.ReservationRepositories;
+using CarBookProject.Application.Interfaces.CarDescriptionInterfaces;
+using CarBookProject.Persistence.Repositories.CarDescriptionRepositories;
 
 namespace CarBookProject.WebApi.Extensions
 {
@@ -43,6 +45,7 @@ namespace CarBookProject.WebApi.Extensions
             services.AddScoped(typeof(ICarFeatureRepository), typeof(CarFeatureRepository));
             services.AddScoped(typeof(IFeatureRepository), typeof(FeatureRepository));
             services.AddScoped(typeof(IReservationRepository), typeof(ReservationRepository));
+            services.AddScoped(typeof(ICarDescriptionRepository), typeof(CarDescriptionRepository));
 
             services.AddScoped<GetAboutQueryHandler>();
             services.AddScoped<GetAboutByIdQueryHandler>();

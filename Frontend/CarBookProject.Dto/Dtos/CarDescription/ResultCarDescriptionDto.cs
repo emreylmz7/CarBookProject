@@ -1,10 +1,9 @@
-﻿namespace CarBook.Domain.Entities
+﻿namespace CarBookProject.Dto.Dtos.CarDescription
 {
-    public class CarDescription
+    public class ResultCarDescriptionDto
     {
         public int CarDescriptionId { get; set; }
         public int CarId { get; set; }
-        public Car? Car { get; set; }
         public string? Details { get; set; }
     }
 }

@@ -30,8 +30,17 @@ namespace CarBookProject.Persistence.Repositories.CarRepositories
                 new CarPricing { CarId = carId, PricingId = 5, Amount = 800 }
             };
 
-            _context.CarPricings.AddRange(carPricings);
-            await _context.SaveChangesAsync(); // Araba fiyatlandırmalarını veritabanına kaydet
+			var carFeatures = new List<CarFeature>
+			{
+				new CarFeature { CarId = carId, FeatureId = 1, Available = true },
+				new CarFeature { CarId = carId, FeatureId = 6, Available = true },
+				new CarFeature { CarId = carId, FeatureId = 2, Available = true },
+			};
+
+			_context.CarPricings.AddRange(carPricings);
+			_context.CarFeatures.AddRange(carFeatures);
+
+            await _context.SaveChangesAsync();
         }
 
 
