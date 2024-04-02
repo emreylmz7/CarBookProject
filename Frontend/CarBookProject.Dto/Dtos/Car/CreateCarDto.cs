@@ -1,6 +1,4 @@
-﻿
-
-using CarBook.Domain.Enums;
+﻿using CarBook.Domain.Enums;
 
 namespace CarBookProject.Dto.Dtos.Car
 {

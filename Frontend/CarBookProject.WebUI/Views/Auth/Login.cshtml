@@ -1,0 +1,99 @@
+﻿@model LoginDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://cdn.autobild.es/sites/navi.axelspringer.es/public/media/image/2019/03/prueba-porsche-911-cabriolet-s-2019-12.jpg?tf=3840x');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Arka planda hafif bir opaklık */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 400px;
+            text-align: center;
+        }
+
+            .container h1 {
+                margin-bottom: 20px;
+            }
+
+            .container img {
+                width: 280px; /* Logonun genişliği */
+                margin-bottom: 5px;
+            }
+
+            .container input[type="text"],
+            .container input[type="email"],
+            .container input[type="password"] {
+                width: calc(100% - 20px);
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            .container button {
+                background-color: #4caf50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+                .container button:hover {
+                    background-color: #45a049;
+                }
+
+            .container a {
+                color: #4caf50;
+                text-decoration: none;
+            }
+
+                .container a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="~/carbook-master//images/logo.png" alt="Logo">
+        <h1>Login</h1>
+        <form method="post" asp-action="Login" asp-controller="Auth">
+            <div>
+                <input type="text" id="Username" name="Username" placeholder="Username" required>
+                <span asp-validation-for="Username" class="text-warning"></span>
+            </div>
+            <div>
+                <input type="password" id="Password" name="Password" placeholder="Password" required>
+                <span asp-validation-for="Password" class="text-warning"></span>
+            </div>
+
+            <div>
+                <button type="submit">Login</button>
+            </div>
+            <p>Dont have an account? <a href="/Auth/Register/">Register here</a></p>
+        </form>
+    </div>
+</body>
+</html>

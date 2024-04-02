@@ -1,7 +1,4 @@
-﻿
-using CarBook.Domain.Entities;
-
-namespace CarBookProject.Application.Features.Mediator.Results.ReservationResults
+﻿namespace CarBookProject.Application.Features.Mediator.Results.ReservationResults
 {
     public class GetReservationByIdQueryResult
     {

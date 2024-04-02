@@ -1,9 +1,10 @@
 ﻿using CarBook.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarBookProject.Persistence.Context
 {
-    public class CarBookContext : DbContext
+    public class CarBookContext : IdentityDbContext<AppUser,AppRole,int>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -12,7 +13,9 @@ namespace CarBookProject.Persistence.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Reservation>()
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<Reservation>()
                 .HasOne(x => x.PickupLocation)
                 .WithMany(y => y.PickUpReservations)
                 .HasForeignKey(x => x.PickupLocationId)
@@ -23,9 +26,9 @@ namespace CarBookProject.Persistence.Context
                 .WithMany(y => y.DropOffReservations)
                 .HasForeignKey(x => x.DropOffLocationId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
-        }
+		}
 
-        public DbSet<About> Abouts { get; set; }
+		public DbSet<About> Abouts { get; set; }
         public DbSet<Banner> Banners { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Car> Cars { get; set; }
@@ -49,5 +52,6 @@ namespace CarBookProject.Persistence.Context
         public DbSet<RentACarProcess> RentACarProcesses { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Review> Reviews { get; set; }
     }
 }
