@@ -25,5 +25,6 @@ namespace CarBookProject.Application.Features.Mediator.Results.AppUserResults
 		[DataType(DataType.Password)]
 		[Compare("Password", ErrorMessage = "Password and Confirm Password do not match")]
 		public string? ConfirmPassword { get; set; }
+
 	}
 }

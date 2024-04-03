@@ -25,5 +25,6 @@ namespace CarBookProject.Dto.Dtos.Authentication
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Password and Confirm Password do not match")]
         public string? ConfirmPassword { get; set; }
-    }
+
+	}
 }

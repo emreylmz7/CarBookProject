@@ -41,6 +41,7 @@ namespace CarBookProject.WebApi.Controllers
 				Email = model.Mail,
 				Name = model.Name,
 				Surname = model.Surname,
+				RegistrationDate = DateTime.Now
 			};
 
 			var result = await _userManager.CreateAsync(user, model.Password!);
@@ -65,7 +66,7 @@ namespace CarBookProject.WebApi.Controllers
 			var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, true);
 			if (result.Succeeded)
 			{
-				return Ok(new { token = GenerateJWT(user) });
+				return Ok(new { token = GenerateJWT(user)});
 			}
 			return Unauthorized();
 		}
@@ -73,15 +74,20 @@ namespace CarBookProject.WebApi.Controllers
 		[HttpGet("AccountInfo")]
 		public IActionResult AccountInfo()
 		{
-			var Username = _authenticatedUserRepository.Username;
-			var Name = _authenticatedUserRepository.Name;
-			var Surname = _authenticatedUserRepository.Surname;
-			var DateOfBirth = _authenticatedUserRepository.DateOfBirth;
-			var Address = _authenticatedUserRepository.Address;
-			var RegistrationDate = _authenticatedUserRepository.RegistrationDate;
-			var Age = _authenticatedUserRepository.Age;
-
-			return Ok(new { Username, Name, Surname, DateOfBirth, Address, RegistrationDate,Age });
+			var accountInfos = new AccountInfoQueryResult()
+			{
+				UserId = _authenticatedUserRepository.UserId,
+				Username = _authenticatedUserRepository.Username,
+				Email = _authenticatedUserRepository.Email,
+				Name = _authenticatedUserRepository.Name,
+				Surname = _authenticatedUserRepository.Surname,
+				DateOfBirth = _authenticatedUserRepository.DateOfBirth,
+				Address = _authenticatedUserRepository.Address,
+				RegistrationDate = _authenticatedUserRepository.RegistrationDate,
+				Age = _authenticatedUserRepository.Age,
+				LicenseIssuanceYear = _authenticatedUserRepository.LicenseIssuanceYear,
+			};
+			return Ok(accountInfos);
 		}
 
 
@@ -95,11 +101,11 @@ namespace CarBookProject.WebApi.Controllers
 					new Claim[] {
 						new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
 						new Claim(ClaimTypes.Name, user.UserName ?? ""),
-						new Claim("UserId", user.Id.ToString()),
 						new Claim("Name", user.Name ?? ""),
 						new Claim("Surname", user.Surname!),
 						new Claim("Email", user.Email!),
 						new Claim("UserName", user.UserName!),
+						new Claim("Address", user.Address!),
 						new Claim("DateOfBirth", user.DateOfBirth.ToString("yyyy-MM-dd")),
 						new Claim("RegistrationDate", user.RegistrationDate.ToString("yyyy-MM-dd")),
 						new Claim("Age", user.Age.ToString()),

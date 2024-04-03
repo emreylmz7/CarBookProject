@@ -1,11 +1,11 @@
-﻿namespace CarBookProject.Application.Interfaces.AuthenticationInterfaces
+﻿namespace CarBookProject.Dto.Dtos.Authentication
 {
-	public interface IAuthenticatedUserRepository
+	public class AccountProfileDto
 	{
-		public string UserId { get; }
-		public string Username { get; }
-		public string Email { get; }
+		public string? UserId { get; set; }
 		public string? Name { get; set; }
+		public string? Username { get; set; }
+		public string? Email { get; set; }
 		public string? Surname { get; set; }
 		public DateTime? DateOfBirth { get; set; }
 		public string? Address { get; set; }
@@ -13,6 +13,5 @@
 		public DateTime RegistrationDate { get; set; }
 		public int Age { get; set; }
 		public int LicenseIssuanceYear { get; set; }
-		public bool IsActive { get; set; }
 	}
 }

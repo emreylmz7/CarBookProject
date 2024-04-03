@@ -14,6 +14,7 @@ namespace CarBookProject.Persistence.Repositories.AuthenticationRepositories
 
 			UserId = GetUserId();
 			Username = GetUsername();
+			Email = GetEmail();
 			Name = GetName();
 			Surname = GetSurname();
 			DateOfBirth = GetDateOfBirth();
@@ -27,6 +28,7 @@ namespace CarBookProject.Persistence.Repositories.AuthenticationRepositories
 
 		public string UserId { get; }
 		public string Username { get; }
+		public string Email { get; }
 		public string? Name { get; set; }
 		public string? Surname { get; set; }
 		public DateTime? DateOfBirth { get; set; }
@@ -45,6 +47,11 @@ namespace CarBookProject.Persistence.Repositories.AuthenticationRepositories
 		private string GetUsername()
 		{
 			return _httpContextAccessor.HttpContext?.User?.Identity?.Name ?? "";
+		}
+
+		private string GetEmail()
+		{
+			return _httpContextAccessor.HttpContext?.User?.FindFirstValue("Email") ?? "";
 		}
 
 		private string GetName()

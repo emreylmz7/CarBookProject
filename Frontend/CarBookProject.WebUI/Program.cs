@@ -1,13 +1,24 @@
-using CarBook.Domain.Entities;
-using CarBookProject.Persistence.Context;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<CarBookContext>();
-builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<CarBookContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddCookie
+    (JwtBearerDefaults.AuthenticationScheme, opt =>
+        {
+		    opt.LoginPath = "/Auth/Login/";
+		    opt.LogoutPath = "/Default/Index/";
+            opt.AccessDeniedPath = "/";
+            opt.Cookie.SameSite = SameSiteMode.Strict;
+            opt.Cookie.HttpOnly = true;
+            opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+            opt.Cookie.Name = "CarBookJwt";
+
+	    }
+    ); 
 
 var app = builder.Build();
 
@@ -23,6 +34,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
