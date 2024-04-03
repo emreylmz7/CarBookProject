@@ -1,6 +1,5 @@
 ﻿using CarBookProject.Application.Interfaces.AuthenticationInterfaces;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Security.Claims;
 
 namespace CarBookProject.Persistence.Repositories.AuthenticationRepositories

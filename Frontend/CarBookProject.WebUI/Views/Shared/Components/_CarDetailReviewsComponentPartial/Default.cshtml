@@ -1,0 +1,74 @@
+﻿@model List<ResultReviewDto>
+
+@{
+    // Yıldız değerlerini saklamak için bir dizi oluşturun
+    int[] starCounts = new int[5];
+
+    if (Model.Count > 0)
+    {
+        // Her bir inceleme için yıldız sayılarını hesaplayın
+        foreach (var item in Model)
+        {
+            // Rating değerine göre ilgili yıldız sayısını artırın
+            starCounts[item.Rating - 1]++;
+        }
+    }
+}
+
+<div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
+    <div class="row">
+        <div class="col-md-7">
+            <h3 class="head">@ViewBag.CommentCount Reviews</h3>
+            @if (Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="review d-flex">
+                        <div class="user-img" style="background-image: url(/carbook-master/images/img.png)"></div>
+                        <div class="desc">
+                            <h4>
+                                <span class="text-left">@item.UserName</span>
+                                <span class="text-right">@item.DatePosted.Date.ToString("MMM. dd, yyyy")</span>
+                            </h4>
+                            <p class="star">
+                                <span>
+                                    @for (int i = 0; i < item.Rating; i++)
+                                    {
+                                        <i class="ion-ios-star"></i>
+                                    }
+
+                                </span>
+                                <span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+                            </p>
+                            <p>@item.Comment</p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <h4>No Comments</h4>
+            }
+        </div>
+        <div class="col-md-5">
+            <div class="rating-wrap">
+                <h3 class="head">Give a Review</h3>
+                <div class="wrap">
+                    @for (int i = 5; i >= 1; i--)
+                    {
+                        <p class="star">
+                            <span>
+                                @for (int j = 0; j < starCounts[i - 1]; j++)
+                                {
+                                    <i class="ion-ios-star"></i>
+                                }
+                                @(starCounts[i - 1] > 0 ? $"{(starCounts[i - 1] * 100) / Model.Count}%" : "(0%)")
+                            </span>
+                            <span>@starCounts[i - 1] Reviews</span>
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

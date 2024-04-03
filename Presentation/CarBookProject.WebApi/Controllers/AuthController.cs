@@ -37,20 +37,13 @@ namespace CarBookProject.WebApi.Controllers
 
 			var user = new AppUser
 			{
-				UserName = model.UserName,
-				Email = model.Email,
+				UserName = model.Username,
+				Email = model.Mail,
 				Name = model.Name,
 				Surname = model.Surname,
-				DateOfBirth = model.DateOfBirth,
-				Address = model.Address,
-				ProfilePicture = model.ProfilePicture,
-				RegistrationDate = model.RegistrationDate,
-				Age = model.Age,
-				LicenseIssuanceYear = model.LicenseIssuanceYear,
-				IsActive = model.IsActive
 			};
 
-			var result = await _userManager.CreateAsync(user, model.Password);
+			var result = await _userManager.CreateAsync(user, model.Password!);
 			if (result.Succeeded)
 			{
 				return StatusCode(201);

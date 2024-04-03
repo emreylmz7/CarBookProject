@@ -16,6 +16,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<CarBookContext>();
+
 builder.Services.Configure<IdentityOptions>(options => {
 
 	options.Password.RequiredLength = 3;

@@ -1,18 +1,29 @@
-﻿namespace CarBookProject.Application.Features.Mediator.Results.AppUserResults
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CarBookProject.Application.Features.Mediator.Results.AppUserResults
 {
 	public class GetAppUserQueryResult
 	{
+		[Required(ErrorMessage = "Name is required")]
 		public string? Name { get; set; }
+
+		[Required(ErrorMessage = "Surname is required")]
 		public string? Surname { get; set; }
-		public string Email { get; set; } = null!;
-		public string Password { get; set; } = null!;
-		public string UserName { get; set; } = null!;
-		public DateTime DateOfBirth { get; set; }
-		public string? Address { get; set; }
-		public byte[]? ProfilePicture { get; set; }
-		public DateTime RegistrationDate { get; set; }
-		public int Age { get; set; }
-		public int LicenseIssuanceYear { get; set; }
-		public bool IsActive { get; set; }
+
+		[Required(ErrorMessage = "Username is required")]
+		public string? Username { get; set; }
+
+		[Required(ErrorMessage = "Email is required")]
+		[EmailAddress(ErrorMessage = "Invalid Email Address")]
+		public string? Mail { get; set; }
+
+		[Required(ErrorMessage = "Password is required")]
+		[DataType(DataType.Password)]
+		public string? Password { get; set; }
+
+		[Required(ErrorMessage = "Confirm Password is required")]
+		[DataType(DataType.Password)]
+		[Compare("Password", ErrorMessage = "Password and Confirm Password do not match")]
+		public string? ConfirmPassword { get; set; }
 	}
 }
