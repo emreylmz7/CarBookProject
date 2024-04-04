@@ -10,7 +10,8 @@
 		public DateTime DueDate { get; set; } // Fatura ödeme son tarihi
 		public int PaymentId { get; set; } // Faturaya bağlı olan ödemenin kimliği
 		public Payment? Payment { get; set; } // Faturaya bağlı olan ödeme
-		public AppUser? User { get; set; } // Faturanın ilişkilendirildiği kullanıcı
+		public int AppUserId { get; set; }
+		public AppUser? AppUser { get; set; } // Faturanın ilişkilendirildiği kullanıcı
 		public int ReservationId { get; set; } // Faturanın ilişkilendirildiği araba rezervasyonunun kimliği
 		public Reservation? Reservation { get; set; } // Faturanın ilişkilendirildiği araba rezervasyonu
 		public string? BillingAddress { get; set; } // Fatura adresi

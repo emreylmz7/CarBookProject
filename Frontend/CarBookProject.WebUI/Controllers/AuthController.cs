@@ -64,10 +64,18 @@ namespace CarBookProject.WebUI.Controllers
                 {
                     JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
                     var token = handler.ReadJwtToken(tokenModel.Token);
-                    var claims = token.Claims.ToList();
+					var userId = token.Claims.FirstOrDefault(c => c.Type == "nameid");
+                    
+					var claims = token.Claims.ToList();
 
-                    if (tokenModel.Token != null)
+					if (userId != null)
+					{
+						claims.Add(new Claim("userId", userId.Value));
+					}
+
+					if (tokenModel.Token != null)
                     {
+
                         claims.Add(new Claim("accessToken", tokenModel.Token));
                         var claimsIdentity = new ClaimsIdentity(claims,JwtBearerDefaults.AuthenticationScheme);
                         var authProps = new AuthenticationProperties

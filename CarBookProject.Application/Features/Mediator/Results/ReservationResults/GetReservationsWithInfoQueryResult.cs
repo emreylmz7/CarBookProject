@@ -5,9 +5,6 @@ namespace CarBookProject.Application.Features.Mediator.Results.ReservationResult
     public class GetReservationsWithInfoQueryResult
     {
         public int ReservationId { get; set; }
-        public string? Name { get; set; }
-        public string? Email { get; set; }
-        public string? PhoneNumber { get; set; }
         public string? CarName { get; set; }
         public int CarId { get; set; }
         public int PickupLocationId { get; set; }
@@ -17,10 +14,10 @@ namespace CarBookProject.Application.Features.Mediator.Results.ReservationResult
         public DateTime PreferredPickupDate { get; set; }
         public DateTime PreferredDropOffDate { get; set; }
         public int TotalRentDay { get; set; }
-        public int Age { get; set; }
-        public int LicenseIssuanceYear { get; set; }
         public string? AdditionalComments { get; set; }
         public ReservationStatus Status { get; set; }
+		public int AppUserId { get; set; }
+		public decimal TotalCost { get; set; }
 
-    }
+	}
 }

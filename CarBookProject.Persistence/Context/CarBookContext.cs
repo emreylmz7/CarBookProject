@@ -26,6 +26,27 @@ namespace CarBookProject.Persistence.Context
                 .WithMany(y => y.DropOffReservations)
                 .HasForeignKey(x => x.DropOffLocationId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+			//Reservation
+			modelBuilder.Entity<Reservation>()
+				.HasOne(p => p.AppUser)
+				.WithMany(u => u.Reservations)
+				.HasForeignKey(p => p.AppUserId)
+				.OnDelete(DeleteBehavior.Restrict);
+			
+            //Payment
+			modelBuilder.Entity<Payment>()
+		        .HasOne(p => p.AppUser)
+		        .WithMany(u => u.Payments)
+		        .HasForeignKey(p => p.AppUserId)
+		        .OnDelete(DeleteBehavior.Restrict);
+
+            //Invoices
+			modelBuilder.Entity<Invoice>()
+				.HasOne(i => i.AppUser)
+				.WithMany(p => p.Invoices)
+				.HasForeignKey(p => p.AppUserId)
+				.OnDelete(DeleteBehavior.Restrict);
 		}
 
 		public DbSet<About> Abouts { get; set; }

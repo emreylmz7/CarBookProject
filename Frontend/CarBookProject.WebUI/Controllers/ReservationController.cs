@@ -22,6 +22,7 @@ namespace CarBookProject.WebUI.Controllers
             ViewBag.v1 = "Car Rental";
             ViewBag.v2 = "Car Reservation Form";
             ViewBag.v3 = id;
+            ViewBag.AppUserId = User.Claims.FirstOrDefault(x => x.Type == "userId")!.Value.ToString();
 
             ViewBag.CarId = TempData["carId"];
             ViewBag.PickupLocationId = TempData["pickUpLocationId"];

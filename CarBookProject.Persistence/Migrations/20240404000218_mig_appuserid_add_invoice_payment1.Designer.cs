@@ -4,6 +4,7 @@ using CarBookProject.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarBookProject.Persistence.Migrations
 {
     [DbContext(typeof(CarBookContext))]
-    partial class CarBookContextModelSnapshot : ModelSnapshot
+    [Migration("20240404000218_mig_appuserid_add_invoice_payment1")]
+    partial class mig_appuserid_add_invoice_payment1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -549,7 +552,7 @@ namespace CarBookProject.Persistence.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("AppUserId")
+                    b.Property<int?>("AppUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("BillingAddress")
@@ -623,7 +626,7 @@ namespace CarBookProject.Persistence.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("AppUserId")
+                    b.Property<int?>("AppUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("CarReservationId")
@@ -749,7 +752,7 @@ namespace CarBookProject.Persistence.Migrations
                     b.Property<string>("AdditionalComments")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AppUserId")
+                    b.Property<int?>("AppUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("CarId")
@@ -1103,11 +1106,9 @@ namespace CarBookProject.Persistence.Migrations
 
             modelBuilder.Entity("CarBook.Domain.Entities.Invoice", b =>
                 {
-                    b.HasOne("CarBook.Domain.Entities.AppUser", "AppUser")
+                    b.HasOne("CarBook.Domain.Entities.AppUser", null)
                         .WithMany("Invoices")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("AppUserId");
 
                     b.HasOne("CarBook.Domain.Entities.Payment", "Payment")
                         .WithMany("Invoices")
@@ -1121,8 +1122,6 @@ namespace CarBookProject.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AppUser");
-
                     b.Navigation("Payment");
 
                     b.Navigation("Reservation");
@@ -1130,17 +1129,13 @@ namespace CarBookProject.Persistence.Migrations
 
             modelBuilder.Entity("CarBook.Domain.Entities.Payment", b =>
                 {
-                    b.HasOne("CarBook.Domain.Entities.AppUser", "AppUser")
+                    b.HasOne("CarBook.Domain.Entities.AppUser", null)
                         .WithMany("Payments")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("AppUserId");
 
                     b.HasOne("CarBook.Domain.Entities.Reservation", "Reservation")
                         .WithMany("Payments")
                         .HasForeignKey("ReservationId");
-
-                    b.Navigation("AppUser");
 
                     b.Navigation("Reservation");
                 });
@@ -1193,11 +1188,9 @@ namespace CarBookProject.Persistence.Migrations
 
             modelBuilder.Entity("CarBook.Domain.Entities.Reservation", b =>
                 {
-                    b.HasOne("CarBook.Domain.Entities.AppUser", "AppUser")
+                    b.HasOne("CarBook.Domain.Entities.AppUser", null)
                         .WithMany("Reservations")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("AppUserId");
 
                     b.HasOne("CarBook.Domain.Entities.Car", "Car")
                         .WithMany("Reservations")
@@ -1212,8 +1205,6 @@ namespace CarBookProject.Persistence.Migrations
                     b.HasOne("CarBook.Domain.Entities.Location", "PickupLocation")
                         .WithMany("PickUpReservations")
                         .HasForeignKey("PickupLocationId");
-
-                    b.Navigation("AppUser");
 
                     b.Navigation("Car");
 

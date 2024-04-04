@@ -15,7 +15,8 @@ namespace CarBook.Domain.Entities
         public Location? PickupLocation{ get; set; }
         public Location? DropOffLocation { get; set; }
         public ReservationStatus Status { get; set; }
-		public AppUser? User { get; set; } 
+		public int AppUserId { get; set; }
+		public AppUser? AppUser { get; set; } 
 		public List<Payment>? Payments { get; set; } 
 		public List<Invoice>? Invoices { get; set; } 
 		public decimal TotalCost { get; set; } 

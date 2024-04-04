@@ -13,7 +13,18 @@ namespace CarBookProject.Persistence.Repositories.ReservationRepositories
         {
             _context = context;
         }
-        public async Task<List<Reservation>> GetReservationsWithInfo()
+
+		public async Task CreateReservationWithTotalCost(Reservation reservation)
+		{
+			var carPriceForDay = _context.CarPricings.Where(x=> x.CarId == reservation.CarId && x.PricingId == 3).FirstOrDefault();
+			int rentalDuration = (reservation.PreferredDropOffDate - reservation.PreferredPickupDate).Days;
+            var totalPrice = carPriceForDay!.Amount * rentalDuration;
+            reservation.TotalCost = totalPrice;
+            _context.Reservations.Add(reservation);
+			await _context.SaveChangesAsync();
+	    }
+
+		public async Task<List<Reservation>> GetReservationsWithInfo()
         {
             var values = await _context.Reservations!
                 .Include(x => x.Car)
