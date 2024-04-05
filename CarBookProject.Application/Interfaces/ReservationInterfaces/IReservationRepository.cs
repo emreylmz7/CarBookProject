@@ -1,5 +1,4 @@
-﻿
-using CarBook.Domain.Entities;
+﻿using CarBook.Domain.Entities;
 
 namespace CarBookProject.Application.Interfaces.ReservationInterfaces
 {
@@ -7,5 +6,6 @@ namespace CarBookProject.Application.Interfaces.ReservationInterfaces
     {
         Task<List<Reservation>> GetReservationsWithInfo();
 		Task<int> CreateReservationWithTotalCost(Reservation reservation);
-	}
+        Task<List<Reservation>> GetReservationsByUserId(int id);
+    }
 }

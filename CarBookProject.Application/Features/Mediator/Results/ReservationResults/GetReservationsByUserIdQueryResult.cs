@@ -1,11 +1,10 @@
-﻿using CarBookProject.Dto.Enums;
+﻿using CarBook.Domain.Enums;
 
-namespace CarBookProject.Dto.Dtos.Reservation
+namespace CarBookProject.Application.Features.Mediator.Results.ReservationResults
 {
-    public class ResultReservationWithInfoDto
+    public class GetReservationsByUserIdQueryResult
     {
         public int ReservationId { get; set; }
-        public decimal TotalCost { get; set; }
         public string? CarName { get; set; }
         public int CarId { get; set; }
         public int PickupLocationId { get; set; }
@@ -17,5 +16,7 @@ namespace CarBookProject.Dto.Dtos.Reservation
         public int TotalRentDay { get; set; }
         public string? AdditionalComments { get; set; }
         public ReservationStatus Status { get; set; }
+        public int AppUserId { get; set; }
+        public decimal TotalCost { get; set; }
     }
 }

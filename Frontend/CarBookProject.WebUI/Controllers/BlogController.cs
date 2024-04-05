@@ -34,7 +34,7 @@ namespace CarBookProject.WebUI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> BlogDetail(int id) 
+        public IActionResult BlogDetail(int id) 
         {
             ViewBag.v1 = "Blogs";
             ViewBag.v2 = "Blog Details";

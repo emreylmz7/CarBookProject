@@ -14,7 +14,6 @@
                 <table class="table table-centered table-hover table-xl mb-0" id="recent-orders">
                     <thead>
                         <tr>
-                            <th class="border-top-0">Customers</th>
                             <th class="border-top-0">Pick-up Location</th>
                             <th class="border-top-0">Drop-Off Location</th>
                             <th class="border-top-0">Car Model</th>
@@ -26,7 +25,6 @@
                         @foreach(var item in Model)
                         {
                             <tr>
-                                <td class="text-truncate">@item.Name</td>
                                 <td class="text-truncate">@item.PickupLocation</td>
                                 <td class="text-truncate">@item.DropOffLocation</td>
                                 <td>

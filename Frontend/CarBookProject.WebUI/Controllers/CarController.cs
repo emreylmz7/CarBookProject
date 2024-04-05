@@ -29,7 +29,7 @@ namespace CarBookProject.WebUI.Controllers
             return View();
         }
 
-        public async Task<IActionResult> CarDetail(int id)
+        public IActionResult CarDetail(int id)
         {
             ViewBag.v1 = "Cars";
             ViewBag.v2 = "Car Details";

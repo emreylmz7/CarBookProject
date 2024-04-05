@@ -31,7 +31,7 @@ namespace CarBookProject.Persistence.Repositories.PaymentRepositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Payment>> GetPaymentsWithInfo()
+        public Task<List<Payment>> GetPaymentsWithInfo()
         {
             throw new NotImplementedException();
         }

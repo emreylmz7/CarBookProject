@@ -2,7 +2,7 @@
 
 namespace CarBookProject.Dto.Dtos.Reservation
 {
-    public class ResultReservationWithInfoDto
+    public class ResultReservationsByUserIdDto
     {
         public int ReservationId { get; set; }
         public decimal TotalCost { get; set; }
