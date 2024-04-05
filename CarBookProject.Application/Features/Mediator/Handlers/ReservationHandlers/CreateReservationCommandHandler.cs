@@ -7,7 +7,7 @@ using MediatR;
 
 namespace CarBookProject.Application.Features.Mediator.Handlers.ReservationHandlers
 {
-	public class CreateReservationCommandHandler : IRequestHandler<CreateReservationCommand>
+	public class CreateReservationCommandHandler : IRequestHandler<CreateReservationCommand,int>
     {
         private readonly IReservationRepository _repository;
         private readonly IMapper _mapper;
@@ -18,11 +18,12 @@ namespace CarBookProject.Application.Features.Mediator.Handlers.ReservationHandl
             _mapper = mapper;
         }
 
-        public async Task Handle(CreateReservationCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
         {
             var reservationEntity = _mapper.Map<Reservation>(request);
             reservationEntity.Status = ReservationStatus.Pending;
-            await _repository.CreateReservationWithTotalCost(reservationEntity);
+            int reservationId =  await _repository.CreateReservationWithTotalCost(reservationEntity);
+            return reservationId;
         }
     }
 }

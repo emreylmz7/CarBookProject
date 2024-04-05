@@ -2,7 +2,7 @@
 
 namespace CarBookProject.Application.Features.Mediator.Commands.ReservationCommands
 {
-	public class CreateReservationCommand : IRequest
+	public class CreateReservationCommand : IRequest<int>
     {
 		public int CarId { get; set; }
         public int PickupLocationId { get; set; }

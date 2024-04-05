@@ -31,6 +31,8 @@ using CarBookProject.Application.Interfaces.AuthenticationInterfaces;
 using CarBookProject.Persistence.Repositories.AuthenticationRepositories;
 using CarBookProject.Application.Interfaces.ReviewInterfaces;
 using CarBookProject.Persistence.Repositories.ReviewRepositories;
+using CarBookProject.Persistence.Repositories.PaymentRepositories;
+using CarBookProject.Application.Interfaces.PaymentInterfaces;
 
 namespace CarBookProject.WebApi.Extensions
 {
@@ -52,6 +54,7 @@ namespace CarBookProject.WebApi.Extensions
             services.AddScoped(typeof(ICarDescriptionRepository), typeof(CarDescriptionRepository));
             services.AddScoped(typeof(IAuthenticatedUserRepository), typeof(AuthenticatedUserRepository));
             services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
+            services.AddScoped(typeof(IPaymentRepository), typeof(PaymentRepository));
 
             services.AddScoped<GetAboutQueryHandler>();
             services.AddScoped<GetAboutByIdQueryHandler>();

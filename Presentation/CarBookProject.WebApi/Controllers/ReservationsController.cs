@@ -33,8 +33,8 @@ namespace CarBookProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateReservation(CreateReservationCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Reservation added successfully");
+            int id = await _mediator.Send(command);
+            return Ok(id);
         }
 
         [HttpDelete("{id}")]

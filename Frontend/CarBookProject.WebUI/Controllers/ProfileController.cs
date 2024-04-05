@@ -1,10 +1,12 @@
 ﻿using CarBookProject.Dto.Dtos.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 
 namespace CarBookProject.WebUI.Controllers
 {
+	[Authorize]
     public class ProfileController : Controller
     {
 		private readonly IHttpClientFactory _httpClientFactory;

@@ -6,6 +6,6 @@ namespace CarBookProject.Application.Interfaces.ReservationInterfaces
     public interface IReservationRepository
     {
         Task<List<Reservation>> GetReservationsWithInfo();
-		Task CreateReservationWithTotalCost(Reservation reservation);
+		Task<int> CreateReservationWithTotalCost(Reservation reservation);
 	}
 }

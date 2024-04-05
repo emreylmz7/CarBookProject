@@ -77,7 +77,6 @@ namespace CarBookProject.WebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // Model doğrulama başarısız oldu, kullanıcıya tekrar formu göster
                 return View(createReservationDto);
             }
 
@@ -87,7 +86,9 @@ namespace CarBookProject.WebUI.Controllers
             var responseMessage = await client.PostAsync("https://localhost:44335/api/Reservations", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index", "Default");
+                var responseContent = await responseMessage.Content.ReadAsStringAsync();
+                int reservationId = JsonConvert.DeserializeObject<int>(responseContent);
+                return RedirectToAction("Index", "Payment", new { id = reservationId });
             }
             return View();
         }

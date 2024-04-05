@@ -33,16 +33,22 @@ namespace CarBookProject.Persistence.Context
 				.WithMany(u => u.Reservations)
 				.HasForeignKey(p => p.AppUserId)
 				.OnDelete(DeleteBehavior.Restrict);
-			
+
             //Payment
-			modelBuilder.Entity<Payment>()
-		        .HasOne(p => p.AppUser)
-		        .WithMany(u => u.Payments)
-		        .HasForeignKey(p => p.AppUserId)
-		        .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Payment>()
+                .HasOne(p => p.AppUser)
+                .WithMany(u => u.Payments)
+                .HasForeignKey(p => p.AppUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Payment>()
+                .HasOne(p => p.Reservation)
+                .WithMany(u => u.Payments)
+                .HasForeignKey(p => p.ReservationId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             //Invoices
-			modelBuilder.Entity<Invoice>()
+            modelBuilder.Entity<Invoice>()
 				.HasOne(i => i.AppUser)
 				.WithMany(p => p.Invoices)
 				.HasForeignKey(p => p.AppUserId)
@@ -74,5 +80,7 @@ namespace CarBookProject.Persistence.Context
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
     }
 }

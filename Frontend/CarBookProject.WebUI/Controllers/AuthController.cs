@@ -90,5 +90,14 @@ namespace CarBookProject.WebUI.Controllers
             }
 			return View();
         }
-    }
+
+
+		[HttpGet]
+		public async Task<IActionResult> Logout()
+		{
+			await HttpContext.SignOutAsync();
+			return RedirectToAction("Index", "Default");
+		}
+
+	}
 }
