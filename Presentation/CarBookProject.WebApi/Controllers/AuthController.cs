@@ -90,7 +90,6 @@ namespace CarBookProject.WebApi.Controllers
 			return Ok(accountInfos);
 		}
 
-
 		private object GenerateJWT(AppUser user)
 		{
 			var tokenHandler = new JwtSecurityTokenHandler();

@@ -1,4 +1,6 @@
-﻿using CarBookProject.Dto.Dtos.Payment;
+﻿using CarBookProject.Dto.Dtos.Feature;
+using CarBookProject.Dto.Dtos.Payment;
+using CarBookProject.Dto.Dtos.Reservation;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -12,8 +14,17 @@ namespace CarBookProject.WebUI.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
-        public IActionResult Index(int id)
+        public async Task<IActionResult> Index(int id)
 		{
+            using var client = _httpClientFactory.CreateClient();
+            using var responseMessage = await client.GetAsync($"https://localhost:44335/api/Reservations/{id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var values = JsonConvert.DeserializeObject<ResultReservationDto>(jsonData);
+                ViewBag.Amount = values!.TotalCost.ToString();
+            }
+
             ViewBag.ReservationId = id.ToString();
             ViewBag.AppUserId = User.Claims.FirstOrDefault(x => x.Type == "userId")!.Value.ToString();
 

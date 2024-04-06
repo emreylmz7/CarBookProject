@@ -1,0 +1,58 @@
+﻿@model List<ResultPaymentDto>
+
+<div class="card card-header-actions mb-4">
+    <div class="card-header bg-light text-white">
+        <h5 class="m-0">Payments</h5>
+    </div>
+    <div class="card-body px-0">
+        @foreach (var item in Model)
+        {
+            <div class="payment-item d-flex align-items-center justify-content-between px-4 mb-3">
+                <div class="payment-method d-flex align-items-center">
+                    <i class="fab fa-cc-visa fa-2x cc-color-visa me-3"></i>
+                    <div class="px-3">
+                        <div class="payment-info">
+                            <span>@item.Method Payment:</span>
+                            <span class="fw-bold">$@item.Amount</span>
+                        </div>
+                        <div class="payment-date text-muted">Payment Date @item.PaymentDate.Date.ToString("MMM. dd, yyyy")</div>
+                    </div>
+                </div>
+                <div class="payment-status ms-4">
+                    <a class="btn btn-sm btn-outline-primary" href="#!">Get Invoice</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .payment-item {
+        border-radius: 10px;
+        background-color: #f8f9fa;
+        padding: 15px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .payment-info {
+        font-size: 1.1rem;
+    }
+
+    .payment-date {
+        font-size: 0.9rem;
+    }
+
+    .payment-status .badge {
+        font-size: 0.8rem;
+    }
+
+    .btn-add-payment {
+        font-size: 0.9rem;
+        border-radius: 20px;
+    }
+
+        .btn-add-payment:hover {
+            background-color: #dee2e6;
+            color: #000;
+        }
+</style>

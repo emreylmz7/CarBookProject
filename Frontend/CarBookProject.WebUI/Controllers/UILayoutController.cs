@@ -8,5 +8,10 @@ namespace CarBookProject.WebUI.Controllers
         {
             return View();
         }
+
+        public IActionResult OptionUI()
+        {
+            return View();
+        }
     }
 }

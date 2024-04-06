@@ -31,6 +31,12 @@ namespace CarBookProject.Persistence.Repositories.PaymentRepositories
             await _context.SaveChangesAsync();
         }
 
+        public Task<List<Payment>> GetPaymentsByUserId(int id)
+        {
+            var payments = _context.Payments.Where(x => x.AppUserId == id).ToListAsync();
+            return payments;
+        }
+
         public Task<List<Payment>> GetPaymentsWithInfo()
         {
             throw new NotImplementedException();

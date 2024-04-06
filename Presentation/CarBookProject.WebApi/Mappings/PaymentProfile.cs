@@ -13,6 +13,7 @@ namespace CarBookProject.WebApi.Mappings
             CreateMap<RemovePaymentCommand, Payment>().ReverseMap();
             CreateMap<UpdatePaymentCommand, Payment>().ReverseMap();
             CreateMap<GetPaymentByIdQueryResult, Payment>().ReverseMap();
+            CreateMap<GetPaymentByUserIdQueryResult, Payment>().ReverseMap();
             CreateMap<GetPaymentQueryResult, Payment>().ReverseMap();
         }
     }

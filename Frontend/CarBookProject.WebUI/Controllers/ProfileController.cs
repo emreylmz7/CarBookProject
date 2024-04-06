@@ -1,14 +1,15 @@
-﻿using CarBookProject.Dto.Dtos.Authentication;
-using CarBookProject.Dto.Dtos.Feature;
+﻿using CarBookProject.Dto.Dtos.AppUser;
+using CarBookProject.Dto.Dtos.Authentication;
 using CarBookProject.Dto.Dtos.Reservation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace CarBookProject.WebUI.Controllers
 {
-	[Authorize]
+    [Authorize]
     public class ProfileController : Controller
     {
 		private readonly IHttpClientFactory _httpClientFactory;
@@ -39,12 +40,32 @@ namespace CarBookProject.WebUI.Controllers
 			return View();
 		}
 
+        [HttpPost]
+        public async Task<IActionResult> Index(UpdateAppUserDto updateAppUserDto)
+        {
+            var userId = User.Claims.FirstOrDefault(x => x.Type == "userId")!.Value;
+            updateAppUserDto.Id = Convert.ToInt32(userId);
+
+            updateAppUserDto.Age = DateTime.Today.Year - updateAppUserDto.BirthDate.Year;
+
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(updateAppUserDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PutAsync("https://localhost:44335/api/Users", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index","Profile");
+            }
+            return View();
+        }
+
         public async Task<IActionResult> Reservations()
         {
             ViewBag.v1 = "Profile/Reservations";
             ViewBag.v2 = "My Reservations";
 			decimal monthlyTotal = 0;
 			var userId = User.Claims.FirstOrDefault(x => x.Type == "userId")!.Value.ToString();
+            ViewBag.UserId = userId;
 
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")!.Value;
             if (token != null)

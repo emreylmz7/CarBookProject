@@ -50,5 +50,12 @@ namespace CarBookProject.WebApi.Controllers
             await _mediator.Send(command);
             return Ok("Payment updated successfully");
         }
+
+        [HttpGet("GetPaymentByUserId")]
+        public async Task<IActionResult> GetPaymentByUserId(int id)
+        {
+            var values = await _mediator.Send(new GetPaymentByUserIdQuery(id));
+            return Ok(values);
+        }
     }
 }
