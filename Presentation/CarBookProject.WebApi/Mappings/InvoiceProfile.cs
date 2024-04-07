@@ -16,6 +16,7 @@ namespace CarBookProject.WebApi.Mappings
                 .ForMember(dest => dest.CustomerAddress, opt => opt.MapFrom(src => src.AppUser!.Address))
                 .ForMember(dest => dest.CarModel, opt => opt.MapFrom(src => src.Reservation!.Car!.Model))
                 .ForMember(dest => dest.CarBrand, opt => opt.MapFrom(src => src.Reservation!.Car!.Brand.Name))
+                .ForMember(dest => dest.CarDailyPrice, opt => opt.MapFrom(src => GetCarDailyPrice(src)))
                 .ForMember(dest => dest.TotalRentDay, opt => opt.MapFrom(src => CalculateTotalRentDays(src)))
                 .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.Payment!.Amount + src.Payment.TransactionFee + 9.85m))
                 .ForMember(dest => dest.TransactionFee, opt => opt.MapFrom(src => src.Payment!.TransactionFee))
@@ -27,6 +28,7 @@ namespace CarBookProject.WebApi.Mappings
                 .ForMember(dest => dest.CustomerPhone, opt => opt.MapFrom(src => src.AppUser!.PhoneNumber))
                 .ForMember(dest => dest.CustomerAddress, opt => opt.MapFrom(src => src.AppUser!.Address))
                 .ForMember(dest => dest.CarModel, opt => opt.MapFrom(src => src.Reservation!.Car!.Model))
+                .ForMember(dest => dest.CarDailyPrice, opt => opt.MapFrom(src => GetCarDailyPrice(src)))
                 .ForMember(dest => dest.CarBrand, opt => opt.MapFrom(src => src.Reservation!.Car!.Brand.Name))
                 .ForMember(dest => dest.TotalRentDay, opt => opt.MapFrom(src => CalculateTotalRentDays(src)))
                 .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.Payment!.Amount + src.Payment.TransactionFee + 9.85m))
@@ -40,6 +42,7 @@ namespace CarBookProject.WebApi.Mappings
                 .ForMember(dest => dest.CustomerAddress, opt => opt.MapFrom(src => src.AppUser!.Address))
                 .ForMember(dest => dest.CarModel, opt => opt.MapFrom(src => src.Reservation!.Car!.Model))
                 .ForMember(dest => dest.CarBrand, opt => opt.MapFrom(src => src.Reservation!.Car!.Brand.Name))
+                .ForMember(dest => dest.CarDailyPrice, opt => opt.MapFrom(src => GetCarDailyPrice(src)))
                 .ForMember(dest => dest.TotalRentDay, opt => opt.MapFrom(src => CalculateTotalRentDays(src)))
                 .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.Payment!.Amount + src.Payment.TransactionFee + 9.85m))
                 .ForMember(dest => dest.TransactionFee, opt => opt.MapFrom(src => src.Payment!.TransactionFee))
@@ -49,6 +52,13 @@ namespace CarBookProject.WebApi.Mappings
         private int CalculateTotalRentDays(Invoice src)
         {
             return (src.Reservation!.PreferredDropOffDate - src.Reservation.PreferredPickupDate).Days;
+        }
+
+        private decimal GetCarDailyPrice(Invoice src)
+        {
+            var carPrice = src.Reservation!.Car!.CarPricing!.Where(x => x.PricingId == 3 && x.CarId == src.Reservation.CarId).FirstOrDefault();
+            var dailyPrice = carPrice!.Amount;
+            return dailyPrice;
         }
     }
 }

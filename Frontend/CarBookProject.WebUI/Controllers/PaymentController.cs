@@ -1,4 +1,5 @@
 ﻿using CarBookProject.Dto.Dtos.Feature;
+using CarBookProject.Dto.Dtos.Invoice;
 using CarBookProject.Dto.Dtos.Payment;
 using CarBookProject.Dto.Dtos.Reservation;
 using Microsoft.AspNetCore.Mvc;
@@ -41,6 +42,19 @@ namespace CarBookProject.WebUI.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "Default");
+            }
+            return View();
+        }
+
+        public async Task<IActionResult> Invoice(int id)
+        {
+            using var client = _httpClientFactory.CreateClient();
+            using var responseMessage = await client.GetAsync($"https://localhost:44335/api/Invoices/GetInvoicesByPaymentId?id={id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var values = JsonConvert.DeserializeObject<List<ResultInvoiceDto>>(jsonData);
+                return View(values);
             }
             return View();
         }

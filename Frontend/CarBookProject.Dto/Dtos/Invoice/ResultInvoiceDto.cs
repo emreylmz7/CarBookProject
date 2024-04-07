@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarBookProject.Application.Features.Mediator.Results.InvoiceResults
+﻿namespace CarBookProject.Dto.Dtos.Invoice
 {
-    public class GetInvoiceQueryResult
+    public class ResultInvoiceDto
     {
         public int InvoiceId { get; set; }
         public decimal Amount { get; set; }

@@ -22,6 +22,9 @@ namespace CarBookProject.Persistence.Repositories.InvoiceRepositories
                 .Include(x => x.Reservation)
                 .ThenInclude(x => x!.Car)
                 .ThenInclude(x => x!.Brand)
+                .Include(x => x.Reservation)
+                .ThenInclude(x => x!.Car)
+                .ThenInclude(x => x!.CarPricing)
                 .Where(x => x.InvoiceId == id)
                 .FirstOrDefaultAsync();
             
@@ -36,6 +39,9 @@ namespace CarBookProject.Persistence.Repositories.InvoiceRepositories
                 .Include(x => x.Reservation)
                 .ThenInclude(x => x!.Car)
                 .ThenInclude(x => x!.Brand)
+                .Include(x => x.Reservation)
+                .ThenInclude(x => x!.Car)
+                .ThenInclude(x => x!.CarPricing)
                 .ToListAsync();
 
             return invoices;
@@ -49,6 +55,9 @@ namespace CarBookProject.Persistence.Repositories.InvoiceRepositories
                 .Include(x => x.Reservation)
                 .ThenInclude(x => x!.Car)
                 .ThenInclude(x => x!.Brand)
+                .Include(x => x.Reservation)
+                .ThenInclude(x => x!.Car)
+                .ThenInclude(x => x!.CarPricing)
                 .Where(x => x.PaymentId == id)
                 .ToListAsync();
 

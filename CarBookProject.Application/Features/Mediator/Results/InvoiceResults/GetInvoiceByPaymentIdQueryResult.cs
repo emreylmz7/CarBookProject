@@ -11,7 +11,8 @@
         public DateTime DueDate { get; set; } 
         public int PaymentId { get; set; } 
         public int AppUserId { get; set; }
-        public int ReservationId { get; set; } 
+        public int ReservationId { get; set; }
+        public string? InvoiceNumber { get; set; }
         public string? BillingAddress { get; set; } 
         public DateTime PaymentDate { get; set; } 
         public string? CustomerName { get; set; } 
@@ -20,6 +21,7 @@
         public string? CustomerAddress { get; set; } 
         public string? CarModel { get; set; }
         public string? CarBrand { get; set; }
+        public decimal CarDailyPrice { get; set; }
         public int TotalRentDay { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal TransactionFee { get; set; }

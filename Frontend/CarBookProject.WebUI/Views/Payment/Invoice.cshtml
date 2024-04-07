@@ -1,0 +1,218 @@
+﻿@model List<ResultInvoiceDto>
+
+@{
+    ViewData["Title"] = "Invoice";
+     Layout = "~/Views/UILayout/OptionUI.cshtml";
+}
+
+<style>
+    body {
+        background-color: #000;
+        color: #69707a;
+    }
+
+    #invoice {
+        background-color: #f2f6fc;
+        color: #69707a;
+    }
+
+    .card {
+        box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid rgba(0,0,0,.125);
+        border-radius: 1rem;
+    }
+
+    @@media print {
+            body, html {
+                width: 210mm;
+                height: 297mm;
+                overflow: hidden;
+            }
+
+            /* Belirli bir bölümü belirli bir genişlikte sabitleme */
+            #invoiceMain {
+                width: 100%;
+                max-width: 800px; /* veya uygun bir değer */
+                margin: auto;
+            }
+        }
+</style>
+
+@if (Model.Count == 0)
+{
+    <section class="ftco-section contact-section my-5">
+        <div class="py-5" id="invoice">
+            <div class="container">
+                <div class="alert alert-warning" role="alert">
+                    <h4 class="alert-heading">Invoice Not Found</h4>
+                    <p>No invoice associated with this payment was found. The invoice may not have been created or a system error may have occurred.</p>
+                    <hr>
+                    <p class="mb-0">You will be redirected to the Profile shortly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Anasayfaya yönlendirme işlemi
+        setTimeout(function () {
+            window.location.href = "/Profile/Reservations/";
+        }, 5000); // 5000 milisaniye sonra yönlendirme yapılır (örneğin 5 saniye)
+    </script>
+}
+
+else
+{
+    @foreach (var item in Model)
+    {
+        <section class="ftco-section contact-section">
+            <div class="py-5" id="invoice">
+                <div class="container">
+                    <div class="main-content" id="invoiceMain">
+
+                        <div class="page-content">
+                            <div class="container-fluid">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="clearfix">
+                                                    <div class="float-left">
+                                                        <h4><b>Car Book LTD.ŞTİ.</b></h4>
+
+                                                        <address class="line-h-24">
+                                                            @item.BillingAddress<br>
+                                                            <abbr title="Phone">Phone:</abbr> 0242 887 54 12 <br>
+                                                            <abbr title="Email">Email:</abbr> info@carbook.com
+                                                        </address>
+
+                                                    </div>
+                                                    <div class="float-right">
+                                                        <h4 class="m-0 d-print-none">Invoice #@item.InvoiceNumber</h4>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row mt-4">
+                                                    <div class="col-6">
+                                                        <h6 class="font-weight-bold"> Billed To:</h6>
+
+                                                        <address class="line-h-24">
+                                                            <b>@item.CustomerName</b><br>
+                                                            @item.CustomerAddress<br>
+                                                            <abbr title="Phone">Phone:</abbr> @item.CustomerPhone <br>
+                                                            <abbr title="Email">Email:</abbr> @item.CustomerEmail
+                                                        </address>
+                                                    </div><!-- end col -->
+                                                    <div class="col-6">
+                                                        <div class=" float-right mr-4">
+                                                            <p class="mb-2"><strong>Invoice Date: </strong> @item.IssueDate.Date.ToString("MMM. dd, yyyy")</p>
+                                                            <p class="m-b-10"><strong>Invoice ID: </strong> #@item.InvoiceId</p>
+                                                            <p class="mb-2"><strong>Reservation Status: </strong> <span class="badge bg-success text-light font-size-12 ms-2">Paid</span></p>
+                                                            <p class="m-b-10"><strong>Reservation ID: </strong> #@item.ReservationId</p>
+                                                        </div>
+                                                    </div><!-- end col -->
+                                                </div>
+                                                <!-- end row -->
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table mt-4">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">#</th>
+                                                                        <th class="text-center">Car</th>
+                                                                        <th class="text-center">Total Rented Days</th>
+                                                                        <th class="text-center">Daily Cost</th>
+                                                                        <th class="text-center">Total</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="text-center">01</td>
+                                                                        <td class="text-center">
+                                                                            <b>@item.CarModel</b>
+                                                                            <br />
+                                                                            @item.CarBrand
+                                                                        </td>
+                                                                        <td class="text-center">@item.TotalRentDay</td>
+                                                                        <td class="text-center">$@item.CarDailyPrice</td>
+                                                                        <td class="text-center">$@item.Amount</td>
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="clearfix pt-5">
+                                                            <h6 class="text-muted">Notes:</h6>
+
+                                                            <small>
+                                                                All invoices must be settled within 30 days of receipt. Payment can be made by cheque, credit card, or online bank transfer. Failure to settle the invoice within this period will result in the agreed quoted fee being charged to the credit card details provided as confirmation of the work undertaken.
+                                                            </small>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="float-right mr-5">
+                                                            <p><b>Sub-total:</b> $@item.Amount</p>
+                                                            <p><b>Transaction Fee:</b> $@item.TransactionFee</p>
+                                                            <p><b>Tax:</b> $@item.Tax</p>
+                                                            <h3>$@item.TotalAmount USD</h3>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-print-none my-4 mr-4">
+                                                    <div class="text-right">
+                                                        <button onclick="printInvoice()" class="btn btn-primary waves-effect waves-light"><i class="fa fa-print m-r-5"></i> Print</button>
+                                                        <a href="#" class="btn btn-info waves-effect waves-light">Submit</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- end card-->
+                                    </div> <!-- end col -->
+                                </div>
+                                <!-- end row -->
+
+                            </div> <!-- container-fluid -->
+                        </div>
+                        <!-- End Page-content -->
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+        <script>
+            // Yazdırma fonksiyonu
+            function printInvoice() {
+                // Belirli bölümü alıp yeni bir pencerede açın ve yazdırın
+                var printContents = document.getElementById('invoice').innerHTML;
+                var originalContents = document.body.innerHTML;
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+            }
+        </script>
+    }
+}
+
+
