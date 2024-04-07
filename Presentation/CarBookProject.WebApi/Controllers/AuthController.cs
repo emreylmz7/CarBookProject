@@ -1,4 +1,5 @@
 ﻿using CarBook.Domain.Entities;
+using CarBookProject.Application.Features.Mediator.Commands.AppUserCommands;
 using CarBookProject.Application.Features.Mediator.Results.AppUserResults;
 using CarBookProject.Application.Interfaces.AuthenticationInterfaces;
 using Microsoft.AspNetCore.Identity;
@@ -81,6 +82,7 @@ namespace CarBookProject.WebApi.Controllers
 				Email = _authenticatedUserRepository.Email,
 				Name = _authenticatedUserRepository.Name,
 				Surname = _authenticatedUserRepository.Surname,
+                PhoneNumber = _authenticatedUserRepository.PhoneNumber,
 				DateOfBirth = _authenticatedUserRepository.DateOfBirth,
 				Address = _authenticatedUserRepository.Address,
 				RegistrationDate = _authenticatedUserRepository.RegistrationDate,
@@ -90,7 +92,39 @@ namespace CarBookProject.WebApi.Controllers
 			return Ok(accountInfos);
 		}
 
-		private object GenerateJWT(AppUser user)
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateUser(UpdateAppUserCommand model)
+        {
+
+			var user = await _userManager.FindByIdAsync((model.Id).ToString());
+
+            if (user == null)
+            {
+                return NotFound(new { message = "Kullanıcı bulunamadı" });
+            }
+
+			user.UserName = model.UserName;
+            user.Name = model.Name ?? user.Name;
+            user.Surname = model.Surname ?? user.Surname;
+            user.Email = model.Email ?? user.Email;
+            user.PhoneNumber = model.PhoneNumber ?? user.PhoneNumber;
+            user.Address = model.Address ?? user.Address;
+            user.DateOfBirth = model.DateOfBirth;
+            user.ProfilePicture = model.ProfilePicture;
+            user.Age = model.Age;
+            user.LicenseIssuanceYear = model.LicenseIssuanceYear;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return Ok(new { message = "Kullanıcı başarıyla güncellendi" });
+            }
+
+            return BadRequest(result.Errors);
+        }
+
+
+        private object GenerateJWT(AppUser user)
 		{
 			var tokenHandler = new JwtSecurityTokenHandler();
 			var key = Encoding.ASCII.GetBytes(_configuration.GetSection("AppSettings:Secret").Value ?? "");
@@ -103,13 +137,14 @@ namespace CarBookProject.WebApi.Controllers
 						new Claim("Name", user.Name ?? ""),
 						new Claim("Surname", user.Surname!),
 						new Claim("Email", user.Email!),
+						new Claim("PhoneNumber", user.PhoneNumber ?? ""),
 						new Claim("UserName", user.UserName!),
-						new Claim("Address", user.Address!),
-						new Claim("DateOfBirth", user.DateOfBirth.ToString("yyyy-MM-dd")),
-						new Claim("RegistrationDate", user.RegistrationDate.ToString("yyyy-MM-dd")),
-						new Claim("Age", user.Age.ToString()),
-						new Claim("LicenseIssuanceYear", user.LicenseIssuanceYear.ToString()),
-						new Claim("IsActive", user.IsActive.ToString()),
+						new Claim("Address", user.Address ?? ""),
+						new Claim("DateOfBirth", user.DateOfBirth.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString()),
+						new Claim("RegistrationDate", user.RegistrationDate.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString()),
+						new Claim("Age", user.Age.ToString() ?? "18"),
+						new Claim("LicenseIssuanceYear", user.LicenseIssuanceYear.ToString() ?? "0"),
+						new Claim("IsActive", user.IsActive.ToString() ?? "true"),
 					}
 				),
 				Expires = DateTime.UtcNow.AddDays(1),

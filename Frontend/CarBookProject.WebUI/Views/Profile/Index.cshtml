@@ -132,7 +132,7 @@
                                     <!-- Form Group (organization name)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="LicenseIssuanceYear">License Issuance Year</label>
-                                        <input class="form-control" id="LicenseIssuanceYear" name="LicenseIssuanceYear" type="text" placeholder="Enter your License Issuance Year" value="@Model.LicenseIssuanceYear Year">
+                                        <input class="form-control" id="LicenseIssuanceYear" name="LicenseIssuanceYear" type="text" placeholder="Enter your License Issuance Year" value="@Model.LicenseIssuanceYear">
                                     </div>
                                     <!-- Form Group (location)-->
                                     <div class="col-md-6">
@@ -150,12 +150,12 @@
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="PhoneNumber">Phone number</label>
-                                        <input class="form-control" id="PhoneNumber" name="PhoneNumber" type="tel" placeholder="Enter your phone number" value="555-123-4567">
+                                        <input class="form-control" id="PhoneNumber" name="PhoneNumber" type="tel" placeholder="Enter your phone number" value="@Model.PhoneNumber">
                                     </div>
                                     <!-- Form Group (birthday)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="BirthDate">Birthday</label>
-                                        <input class="form-control" id="BirthDate" name="BirthDate" type="date"  placeholder="Enter your birthday" value="@Model.DateOfBirth?.Date">
+                                        <label class="small mb-1" for="DateOfBirth">Birthday</label>
+                                        <input class="form-control" id="DateOfBirth" name="DateOfBirth" type="date" placeholder="Enter your birthday" value="@Model.DateOfBirth?.Date">
                                     </div>
                                 </div>
                                 <!-- Save changes button-->

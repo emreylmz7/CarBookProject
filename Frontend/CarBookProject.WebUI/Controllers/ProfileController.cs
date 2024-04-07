@@ -46,12 +46,12 @@ namespace CarBookProject.WebUI.Controllers
             var userId = User.Claims.FirstOrDefault(x => x.Type == "userId")!.Value;
             updateAppUserDto.Id = Convert.ToInt32(userId);
 
-            updateAppUserDto.Age = DateTime.Today.Year - updateAppUserDto.BirthDate.Year;
+            updateAppUserDto.Age = DateTime.Today.Year - updateAppUserDto.DateOfBirth.Year;
 
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(updateAppUserDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:44335/api/Users", stringContent);
+            var responseMessage = await client.PutAsync("https://localhost:44335/api/Auth/Update", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index","Profile");

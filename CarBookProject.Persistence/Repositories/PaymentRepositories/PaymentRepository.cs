@@ -29,6 +29,26 @@ namespace CarBookProject.Persistence.Repositories.PaymentRepositories
 
             _context.Payments.Add(payment);
             await _context.SaveChangesAsync();
+
+            var invoice = new Invoice
+            {
+                Amount = payment.Amount,
+                IssueDate = DateTime.Now,
+                Description = reservation.AdditionalComments,
+                IsPaid = true,
+                DueDate = payment.PaymentDate.AddDays(30),
+                PaymentId = payment.PaymentId,
+                AppUserId = payment.AppUserId,
+                ReservationId = payment.ReservationId,
+                BillingAddress = "Cumhuriyet Caddesi Merkez Sokak No: 17 Kumluca/Antalya",
+                TaxNumber = "1234567890",
+                InvoiceNumber = "INV-CARBOOK",
+                PaymentDate = payment.PaymentDate,
+                PaymentMethod = "Credit Card"
+            };
+
+            _context.Invoices.Add(invoice);
+            await _context.SaveChangesAsync();
         }
 
         public Task<List<Payment>> GetPaymentsByUserId(int id)

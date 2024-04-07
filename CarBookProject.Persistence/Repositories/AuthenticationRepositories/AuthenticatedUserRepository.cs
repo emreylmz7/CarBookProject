@@ -17,6 +17,7 @@ namespace CarBookProject.Persistence.Repositories.AuthenticationRepositories
 			Email = GetEmail();
 			Name = GetName();
 			Surname = GetSurname();
+            PhoneNumber = GetPhoneNumber();
 			DateOfBirth = GetDateOfBirth();
 			Address = GetAddress();
 			ProfilePicture = GetProfilePicture();
@@ -31,6 +32,7 @@ namespace CarBookProject.Persistence.Repositories.AuthenticationRepositories
 		public string Email { get; }
 		public string? Name { get; set; }
 		public string? Surname { get; set; }
+		public string? PhoneNumber { get; set; }
 		public DateTime? DateOfBirth { get; set; }
 		public string? Address { get; set; }
 		public byte[]? ProfilePicture { get; set; }
@@ -64,7 +66,12 @@ namespace CarBookProject.Persistence.Repositories.AuthenticationRepositories
 			return _httpContextAccessor.HttpContext?.User?.FindFirstValue("Surname") ?? "";
 		}
 
-		private DateTime? GetDateOfBirth()
+        private string GetPhoneNumber()
+        {
+            return _httpContextAccessor.HttpContext?.User?.FindFirstValue("PhoneNumber") ?? "";
+        }
+
+        private DateTime? GetDateOfBirth()
 		{
 			string dateOfBirthString = _httpContextAccessor.HttpContext?.User?.FindFirstValue("DateOfBirth") ?? "";
 			if (!string.IsNullOrEmpty(dateOfBirthString) && DateTime.TryParse(dateOfBirthString, out DateTime createAt))
