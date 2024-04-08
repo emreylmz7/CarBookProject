@@ -1,0 +1,81 @@
+﻿@using CarBookProject.Dto.Enums
+@model List<ResultReservationWithInfoDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Reservation List</h4>
+                        <p class="card-subtitle mb-4">
+                            You can perform transactions related to Reservations on this page.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Reservation ID</th>
+                                        <th>Total Cost</th>
+                                        <th>Car Name</th>
+                                        <th>Pickup Location</th>
+                                        <th>Drop-off Location</th>
+                                        <th>Preferred Pickup Date</th>
+                                        <th>Preferred Drop-off Date</th>
+                                        <th>Total Rent Day</th>
+                                        <th>Status</th>
+                                        <th>Cancel</th>
+                                        <th>Approve</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.ReservationId</td>
+                                            <td>@item.TotalCost $</td>
+                                            <td>@item.CarName</td>
+                                            <td>@item.PickupLocation</td>
+                                            <td>@item.DropOffLocation</td>
+                                            <td>@item.PreferredPickupDate.ToString("yyyy-MM-dd")</td>
+                                            <td>@item.PreferredDropOffDate.ToString("yyyy-MM-dd")</td>
+                                            <td>@item.TotalRentDay Day</td>
+                                            <td><span class="badge @GetStatusBadgeClass(item.Status)">@item.Status</span></td>
+                                            <td><a href="/Admin/AdminReservation/RemoveReservation/@item.ReservationId" class="btn btn-outline-danger">Cancel</a></td>
+                                            <td><a href="/Admin/AdminReservation/UpdateReservation/@item.ReservationId" class="btn btn-outline-success">Approve</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@functions {
+    string GetStatusBadgeClass(ReservationStatus status)
+    {
+        switch (status)
+        {
+            case ReservationStatus.Pending:
+                return "badge-warning";
+            case ReservationStatus.Confirmed:
+                return "badge-primary";
+            case ReservationStatus.Cancelled:
+                return "badge-danger";
+            case ReservationStatus.Completed:
+                return "badge-success";
+            default:
+                return "badge-secondary";
+        }
+    }
+}
