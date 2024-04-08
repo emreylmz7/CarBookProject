@@ -1,5 +1,4 @@
-﻿@model List<FilterRentACarDto>
-
+﻿
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/UILayout/Index.cshtml";
@@ -78,25 +77,19 @@
 
                             <div class="d-flex">
                                 <div class="form-group mr-2">
-                                    <label for="timepick" class="label text-white">Pick-up time</label>
-                                    <input type="text" class="form-control" value="@ViewBag.PickTime" name="timepick" id="timepick" placeholder="Enter pick-up time">
-                                </div>
-                                <div class="form-group">
-                                    <label for="" class="label">Drop-off time</label>
-                                    <select class="form-control" name="timedrop" id="timedrop">
-                                        <option value="">Select drop-off time</option>
-                                        @for (int hour = 9; hour <= 18; hour++)
-                                        {
-                                            for (int minute = 0; minute <= 30; minute += 30)
-                                            {
-                                                <option value="@hour.ToString("D2"):@minute.ToString("D2")" selected="@(ViewBag.DropTime == $"{hour:D2}:{minute:D2}" ? "selected" : null)">@hour.ToString("D2"):@minute.ToString("D2")</option>
-                                            }
-                                        }
+                                    <label class="label">Pick-up time</label>
+                                    <select class="form-control" id="timePick">
+                                        <option value="@ViewBag.PickTime" selected>@ViewBag.PickTime</option>
                                     </select>
                                 </div>
-
-
+                                <div class="form-group ml-2">
+                                    <label class="label">Drop-off time</label>
+                                    <select class="form-control" id="timeDrop">
+                                        <option value="@ViewBag.DropTime" selected>@ViewBag.DropTime</option>
+                                    </select>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="form-group">
@@ -105,61 +98,7 @@
                 </form>
             </div>
         </div>
-        <div class="row mt-3">
-            <p class="text-left ml-3">Total @Model.Count results found.</p>
-            @foreach (var item in Model)
-            {
-                <div class="col-md-12">
-                    <div class="car-wrap rounded ftco-animate d-flex">
-                        <div class="img rounded" style="background-image: url(@item.CoverImageUrl); width: 40%;"></div>
-                        <div class="text pl-4 d-flex flex-column justify-content-between" style="width: 60%;">
-                            <div>
-                                <h2 class="mb-0" style="font-size: 24px;"><a href="/Car/CarDetail/@item.CarId">@item.Model</a></h2>
-                                <div class="d-flex mb-3">
-                                    <span class="cat" style="font-size: 18px;">@item.BrandName</span>
-                                    <p class="price ml-auto" style="font-size: 18px;">@item.HourlyPrice.ToString("0")$ <span>/hour</span></p>
-                                </div>
-                                <div class="d-flex">
-                                    <div class="mr-4">
-                                        <i class="icon-tachometer"></i>
-                                        <span>@item.Km Km</span>
-                                    </div>
-                                    <div class="mr-4">
-                                        <i class="icon-cogs"></i>
-                                        <span>@item.TransmissionType</span>
-                                    </div>
-                                    <div class="mr-4">
-                                        <i class="icon-local_gas_station"></i>
-                                        <span>@item.Fuel</span>
-                                    </div>
-                                    <div>
-                                        <i class="icon-user-circle"></i>
-                                        <span>21+ Age</span>
-                                    </div>
-                                </div>
-                            </div>
+        @await Component.InvokeAsync("_RentACarFilterComponentPartial", new { id = ViewBag.Id })
 
-                            <form id="bookNowForm" method="post" asp-action="GetForReservation">
-                                <div class="mt-auto">
-                                    <p class="d-flex mb-0 d-block">
-                                    
-                                        <input type="hidden" name="CarId" value="@item.CarId" />
-                                        <input type="hidden" name="PickupLocationId" value="@locationId" />
-                                        <input type="hidden" name="DropOffLocationId" value="@dropOffLocationId" />
-                                        <input type="hidden" name="PreferredPickupDate" value="@ViewBag.PickDate.ToString("dd/MM/yyyy")" />
-                                        <input type="hidden" name="PreferredDropOffDate" value="@ViewBag.DropDate.ToString("dd/MM/yyyy")" />
-
-                                        <button type="submit" class="btn btn-primary py-2 mr-1 ">Book now</button>
-                                        <button type="button" onclick="window.location.href='/Car/CarDetail/@item.CarId'" class="btn btn-secondary py-2 ml-1">Details</button>
-
-                                        @* <a href="/Car/CarDetail/@item.CarId" class="btn btn-secondary py-2 ml-1 btn-block">Details</a> *@
-                                    </p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
     </div>
 </section>

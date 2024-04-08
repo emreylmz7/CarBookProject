@@ -43,7 +43,7 @@
                                             }
                                         }
                                     </select>
-                                    <span asp-validation-for="LocationId" class="text-danger small text-muted"></span>
+                                    <span asp-validation-for="LocationId" class="text-warning small"></span>
                                 </div>
 
                                 <div class="form-group">
@@ -62,35 +62,45 @@
                                             }
                                         }
                                     </select>
-                                    <span asp-validation-for="DropOffLocationId" class="text-danger small text-muted"></span>
+                                    <span asp-validation-for="DropOffLocationId" class="text-warning small"></span>
                                 </div>
 
                                 <div class="d-flex">
                                     <div class="form-group mr-2">
                                         <label for="" class="label">Pick-up date</label>
                                         <input asp-for="BookPickDate" class="form-control" >
-                                        <span asp-validation-for="BookPickDate" class="text-danger small text-muted"></span>
+                                        <span asp-validation-for="BookPickDate" class="text-warning small"></span>
                                     </div>
                                     <div class="form-group ml-2">
                                         <label for="" class="label">Drop-off date</label>
                                         <input asp-for="BookOffDate" class="form-control">
-                                        <span asp-validation-for="BookOffDate" class="text-danger small text-muted"></span>
+                                        <span asp-validation-for="BookOffDate" class="text-warning small"></span>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                
+                                <div class="form-group mr-2">
                                     <label class="label">Pick-up time</label>
-                                    <input asp-for="TimePick" class="form-control" >
-                                    <span asp-validation-for="TimePick" class="text-danger small text-muted"></span>
+                                    <select asp-for="TimePick" class="form-control" id="timePick">
+                                        <!-- Pick-up time options will be populated dynamically -->
+                                    </select>
+                                    <span asp-validation-for="TimePick" class="text-warning small"></span>
+
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group ml-2">
                                     <label class="label">Drop-off time</label>
-                                    <input asp-for="TimeDrop" class="form-control">
-                                    <span asp-validation-for="TimeDrop" class="text-danger small text-muted"></span>
+                                    <select asp-for="TimeDrop" class="form-control" id="timeDrop">
+                                        <!-- Drop-off time options will be populated dynamically -->
+                                    </select>
+                                    <span asp-validation-for="TimeDrop" class="text-warning small"></span>
+
                                 </div>
+                               
                                 <div class="form-group">
                                     <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4">
                                 </div>
                             </form>
+
+                            
                         </div>
                         <div class="col-md-8 d-flex align-items-center">
                             <div class="services-wrap rounded-right w-100">

@@ -1,73 +1,61 @@
-﻿
-<section class="ftco-section ftco-no-pt bg-light">
-    <div class="container">
-        <div class="row no-gutters">
-            <div class="col-md-12	featured-top">
-                <div class="row no-gutters">
-                    <div class="col-md-4 d-flex align-items-center">
-                       
-                        <form action="#" class="request-form ftco-animate bg-primary">
-                            <h2>Make your trip</h2>
-                            <div class="form-group">
-                                <label for="" class="label">Pick-up location</label>
-                                <input type="text" class="form-control" placeholder="City, Airport, Station, etc">
+﻿@model List<FilterRentACarDto>
+
+<div class="row mt-3">
+    <p class="text-left ml-3">Total @Model.Count results found.</p>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-12">
+            <div class="car-wrap rounded ftco-animate d-flex">
+                <div class="img rounded" style="background-image: url(@item.CoverImageUrl); width: 40%;"></div>
+                <div class="text pl-4 d-flex flex-column justify-content-between" style="width: 60%;">
+                    <div>
+                        <h2 class="mb-0" style="font-size: 24px;"><a href="/Car/CarDetail/@item.CarId">@item.Model</a></h2>
+                        <div class="d-flex mb-3">
+                            <span class="cat" style="font-size: 18px;">@item.BrandName</span>
+                            <p class="price ml-auto" style="font-size: 18px;">@item.HourlyPrice.ToString("0")$ <span>/hour</span></p>
+                        </div>
+                        <div class="d-flex">
+                            <div class="mr-4">
+                                <i class="icon-tachometer"></i>
+                                <span>@item.Km Km</span>
                             </div>
-                            <div class="form-group">
-                                <label for="" class="label">Drop-off location</label>
-                                <input type="text" class="form-control" placeholder="City, Airport, Station, etc">
+                            <div class="mr-4">
+                                <i class="icon-cogs"></i>
+                                <span>@item.TransmissionType</span>
                             </div>
-                            <div class="d-flex">
-                                <div class="form-group mr-2">
-                                    <label for="" class="label">Pick-up date</label>
-                                    <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
-                                </div>
-                                <div class="form-group ml-2">
-                                    <label for="" class="label">Drop-off date</label>
-                                    <input type="text" class="form-control" id="book_off_date" placeholder="Date">
-                                </div>
+                            <div class="mr-4">
+                                <i class="icon-local_gas_station"></i>
+                                <span>@item.Fuel</span>
                             </div>
-                            <div class="form-group">
-                                <label for="" class="label">Pick-up time</label>
-                                <input type="text" class="form-control" id="time_pick" placeholder="Time">
+                            <div>
+                                <i class="icon-user-circle"></i>
+                                <span>21+ Age</span>
                             </div>
-                            <div class="form-group">
-                                <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-8 d-flex align-items-center">
-                        <div class="services-wrap rounded-right w-100">
-                            <h3 class="heading-section mb-4">Better Way to Rent Your Perfect Cars</h3>
-                            <div class="row d-flex mb-4">
-                                <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-                                    <div class="services w-100 text-center">
-                                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
-                                        <div class="text w-100">
-                                            <h3 class="heading mb-2">Choose Your Pickup Location</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-                                    <div class="services w-100 text-center">
-                                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-handshake"></span></div>
-                                        <div class="text w-100">
-                                            <h3 class="heading mb-2">Select the Best Deal</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-                                    <div class="services w-100 text-center">
-                                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-rent"></span></div>
-                                        <div class="text w-100">
-                                            <h3 class="heading mb-2">Reserve Your Rental Car</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p><a href="#" class="btn btn-primary py-3 px-4">Reserve Your Perfect Car</a></p>
                         </div>
                     </div>
+
+                    <form id="bookNowForm" method="post" asp-action="GetForReservation">
+                        <div class="mt-auto">
+                            <p class="d-flex mb-0 d-block">
+
+                                <input type="hidden" name="CarId" value="@item.CarId" />
+                                <input type="hidden" name="PickupLocationId" value="@ViewBag.LocationId" />
+                                <input type="hidden" name="DropOffLocationId" value="@ViewBag.DropOffLocationId" />
+                                <input type="hidden" name="PreferredPickupDate" value="@ViewBag.PickDate" />
+                                <input type="hidden" name="PreferredDropOffDate" value="@ViewBag.DropDate" />
+
+                                <button type="submit" class="btn btn-primary py-2 mr-1 ">Book now</button>
+                                <button type="button" onclick="window.location.href='/Car/CarDetail/@item.CarId'" class="btn btn-secondary py-2 ml-1">Details</button>
+
+                            </p>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-</section>
+    }
+</div>
+
+
+
+    

@@ -1,5 +1,6 @@
 ﻿using CarBookProject.Application.Features.Mediator.Commands.ReviewCommands; 
-using CarBookProject.Application.Features.Mediator.Queries.ReviewQueries; 
+using CarBookProject.Application.Features.Mediator.Queries.ReviewQueries;
+using CarBookProject.Application.Validators.ReviewValidators;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,13 @@ namespace CarBookProject.WebApi.Controllers
 		[HttpPost]
 		public async Task<IActionResult> CreateReview(CreateReviewCommand command) 
 		{
+			CreateReviewValidator validator = new CreateReviewValidator();
+			var validationResult = validator.Validate(command);
+
+		    if (!validationResult.IsValid) 
+			{
+				return BadRequest(validationResult.Errors);
+			}
 			await _mediator.Send(command);
 			return Ok("Review added successfully");
 		}

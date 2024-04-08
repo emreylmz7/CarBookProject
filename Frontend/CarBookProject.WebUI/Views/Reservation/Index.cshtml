@@ -23,7 +23,7 @@
 
                     <div class="form-group">
                         <label asp-for="PickupLocationId" class="label">Pickup Location</label>
-                        <select asp-for="PickupLocationId" asp-items="@(new SelectList(ViewBag.Locations, "Value", "Text"))" class="form-control" required>
+                        <select asp-for="PickupLocationId" asp-items="@(new SelectList(ViewBag.Locations, "Value", "Text", ViewBag.PickupLocationId))" class="form-control" required>
                             <option value="">Select Pickup Location</option>
                         </select>
                         <span asp-validation-for="PickupLocationId" class="text-danger"></span>
@@ -31,7 +31,7 @@
 
                     <div class="form-group">
                         <label asp-for="DropOffLocationId" class="label">Drop-off Location</label>
-                        <select asp-for="DropOffLocationId" asp-items="@(new SelectList(ViewBag.DropOffLocations, "Value", "Text"))" class="form-control" required>
+                        <select asp-for="DropOffLocationId" asp-items="@(new SelectList(ViewBag.DropOffLocations, "Value", "Text", ViewBag.DropOffLocationId))" class="form-control" required>
                             <option value="">Select Drop-off Location</option>
                         </select>
                         <span asp-validation-for="DropOffLocationId" class="text-danger"></span>
@@ -41,14 +41,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="PreferredPickupDate" class="label">Preferred Pickup Date</label>
-                                <input asp-for="PreferredPickupDate" class="form-control" required>
+                                <input asp-for="PreferredPickupDate" value="@ViewBag.PickupDate" class="form-control" required>
                                 <span asp-validation-for="PreferredPickupDate" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="PreferredDropOffDate" class="label">Preferred Drop-off Date</label>
-                                <input asp-for="PreferredDropOffDate" class="form-control" required>
+                                <input asp-for="PreferredDropOffDate" value="@ViewBag.DropOffDate" class="form-control" required>
                                 <span asp-validation-for="PreferredDropOffDate" class="text-danger"></span>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary btn-block py-3">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-block py-3">Make Reservation</button>
                     </div>
                 </form>
             </div>

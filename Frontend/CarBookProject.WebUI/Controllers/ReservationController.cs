@@ -1,6 +1,7 @@
 ﻿using CarBookProject.Dto.Dtos.Car;
 using CarBookProject.Dto.Dtos.Location;
 using CarBookProject.Dto.Dtos.Reservation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -8,6 +9,7 @@ using System.Text;
 
 namespace CarBookProject.WebUI.Controllers
 {
+    [Authorize]
     public class ReservationController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -25,13 +27,14 @@ namespace CarBookProject.WebUI.Controllers
             ViewBag.AppUserId = User.Claims.FirstOrDefault(x => x.Type == "userId")!.Value.ToString();
 
             ViewBag.CarId = TempData["carId"];
-            ViewBag.PickupLocationId = TempData["pickUpLocationId"];
-            ViewBag.DropOffLocationId = TempData["dropOffLocationId"];
-            ViewBag.PickupDate = TempData["bookpickdate"];
-            ViewBag.DropOffDate = TempData["bookoffdate"];
+			ViewBag.PickupLocationId = TempData["pickUpLocationId"] ?? "2";
+			ViewBag.DropOffLocationId = TempData["dropOffLocationId"] ?? "4";
+			ViewBag.PickupDate = TempData["bookpickdate"] != null ? ((DateTime)TempData["bookpickdate"]!).ToString("yyyy-MM-dd") : DateTime.Now.Date.ToString("yyyy-MM-dd");
+			ViewBag.DropOffDate = TempData["bookoffdate"] != null ? ((DateTime)TempData["bookoffdate"]!).ToString("yyyy-MM-dd") : DateTime.Now.Date.AddDays(1).ToString("yyyy-MM-dd");
 
-            //Car
-            var client2 = _httpClientFactory.CreateClient();
+
+			//Car
+			var client2 = _httpClientFactory.CreateClient();
             var responseMessage2 = await client2.GetAsync("https://localhost:44335/api/Cars/GetCarWithBrand");
             var jsonData2 = await responseMessage2.Content.ReadAsStringAsync();
             var values2 = JsonConvert.DeserializeObject<List<ResultCarWithBrandsDto>>(jsonData2);

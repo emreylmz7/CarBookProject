@@ -41,8 +41,8 @@ namespace CarBookProject.WebUI.Controllers
             {
                 TempData["locationId"] = model.LocationId;
                 TempData["DropOffLocationId"] = model.DropOffLocationId;
-                TempData["bookpickdate"] = model.BookPickDate.Date;
-                TempData["bookoffdate"] = model.BookOffDate.Date;
+                TempData["bookpickdate"] = model.BookPickDate.Date.ToString("yyyy-MM-dd");
+                TempData["bookoffdate"] = model.BookOffDate.Date.ToString("yyyy-MM-dd");
                 TempData["timepick"] = model.TimePick.ToString();
                 TempData["timedrop"] = model.TimeDrop.ToString();
 

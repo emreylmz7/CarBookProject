@@ -16,3 +16,43 @@
 <script src="~/carbook-master/js/google-map.js"></script>
 <script src="~/carbook-master/js/main.js"></script>
 
+<script>
+    // Function to populate time options with 30-minute intervals starting from a given time
+    function populateTimeOptions(selectId, defaultTime) {
+        var selectElement = document.getElementById(selectId);
+        selectElement.innerHTML = ''; // Clear existing options
+
+        // Convert defaultTime to HH:mm format
+        var defaultHour = defaultTime.getHours();
+        var defaultMinute = defaultTime.getMinutes();
+        var defaultTimeString = (defaultHour < 10 ? '0' + defaultHour : defaultHour) + ':' + (defaultMinute < 10 ? '0' + defaultMinute : defaultMinute);
+
+        // Populate options with 30-minute intervals from 00:00 to 23:30
+        for (var hour = 0; hour < 24; hour++) {
+            for (var minute = 0; minute < 60; minute += 30) {
+                var time = (hour < 10 ? '0' + hour : hour) + ':' + (minute === 0 ? '00' : minute);
+                var option = new Option(time, time);
+
+                // Set the default option as selected if it matches defaultTime
+                if (time === defaultTimeString) {
+                    option.selected = true;
+                }
+
+                selectElement.add(option);
+            }
+        }
+    }
+
+    // Get default pick-up time from ViewBag or set a default value if ViewBag value is not available
+    var defaultPickUpTime = '@(ViewBag.PickTime ?? "05:30:00")';
+
+    // Get default drop-off time from ViewBag or set a default value if ViewBag value is not available
+    var defaultDropOffTime = '@(ViewBag.DropTime ?? "05:30:00")';
+
+    // Populate pick-up time options with the default pick-up time
+    populateTimeOptions('timePick', new Date('1970-01-01T' + defaultPickUpTime));
+
+    // Populate drop-off time options with the default drop-off time
+    populateTimeOptions('timeDrop', new Date('1970-01-01T' + defaultDropOffTime));
+</script>
+
