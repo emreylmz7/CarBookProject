@@ -35,6 +35,8 @@ using CarBookProject.Persistence.Repositories.PaymentRepositories;
 using CarBookProject.Application.Interfaces.PaymentInterfaces;
 using CarBookProject.Application.Interfaces.InvoiceInterfaces;
 using CarBookProject.Persistence.Repositories.InvoiceRepositories;
+using CarBook.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace CarBookProject.WebApi.Extensions
 {
@@ -43,6 +45,7 @@ namespace CarBookProject.WebApi.Extensions
         public static void AddCustomServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<CarBookContext, CarBookContext>();
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
             services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));

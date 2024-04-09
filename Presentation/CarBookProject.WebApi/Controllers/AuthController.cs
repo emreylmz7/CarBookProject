@@ -15,20 +15,22 @@ namespace CarBookProject.WebApi.Controllers
 	[ApiController]
 	public class AuthController : ControllerBase
 	{
-		private readonly UserManager<AppUser> _userManager;
-		private readonly SignInManager<AppUser> _signInManager;
-		private readonly IConfiguration _configuration;
-		private readonly IAuthenticatedUserRepository _authenticatedUserRepository;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly IConfiguration _configuration;
+        private readonly IAuthenticatedUserRepository _authenticatedUserRepository;
+        private readonly RoleManager<AppRole> _roleManager;
 
-		public AuthController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IConfiguration configuration, IAuthenticatedUserRepository authenticatedUserRepository)
-		{
-			_userManager = userManager;
-			_signInManager = signInManager;
-			_configuration = configuration;
-			_authenticatedUserRepository = authenticatedUserRepository;
-		}
+        public AuthController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IConfiguration configuration, IAuthenticatedUserRepository authenticatedUserRepository, RoleManager<AppRole> roleManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _configuration = configuration;
+            _authenticatedUserRepository = authenticatedUserRepository;
+            _roleManager = roleManager;
+        }
 
-		[HttpPost("Register")]
+        [HttpPost("Register")]
 		public async Task<IActionResult> Register(GetAppUserQueryResult model)
 		{
 			if (!ModelState.IsValid)
@@ -48,7 +50,19 @@ namespace CarBookProject.WebApi.Controllers
 			var result = await _userManager.CreateAsync(user, model.Password!);
 			if (result.Succeeded)
 			{
-				return StatusCode(201);
+                string defaultRole = "User";
+
+                if (!await _roleManager.RoleExistsAsync(defaultRole))
+                {
+                    await _roleManager.CreateAsync(new AppRole()
+                    {
+                        Name = defaultRole,
+                    });
+                }
+
+                await _userManager.AddToRoleAsync(user, defaultRole);
+
+                return StatusCode(201);
 			}
 
 			return BadRequest(result.Errors);
@@ -158,6 +172,34 @@ namespace CarBookProject.WebApi.Controllers
             return BadRequest(result.Errors);
         }
 
+        [HttpPost("CreateRole")]
+        public async Task<IActionResult> CreateRole(string roleName)
+        {
+            if (string.IsNullOrEmpty(roleName))
+            {
+                return BadRequest("Rol adı boş olamaz");
+            }
+
+            // Belirtilen rol zaten mevcutsa hata döndür
+            if (await _roleManager.RoleExistsAsync(roleName))
+            {
+                return Conflict("Belirtilen rol zaten mevcut");
+            }
+
+            // Rolü oluştur
+            var role = new AppRole()
+            {
+                Name = roleName,
+            };
+            var result = await _roleManager.CreateAsync(role);
+
+            if (result.Succeeded)
+            {
+                return Ok($"Rol '{roleName}' başarıyla oluşturuldu");
+            }
+
+            return BadRequest("Rol oluşturma işlemi başarısız");
+        }
 
 
 
