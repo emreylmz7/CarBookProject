@@ -46,6 +46,7 @@ namespace CarBookProject.WebUI.Controllers
         {
             return View();
 		}
+
 		[HttpPost]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
@@ -65,15 +66,21 @@ namespace CarBookProject.WebUI.Controllers
                     JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
                     var token = handler.ReadJwtToken(tokenModel.Token);
 					var userId = token.Claims.FirstOrDefault(c => c.Type == "nameid");
-                    
-					var claims = token.Claims.ToList();
+					var userName = token.Claims.FirstOrDefault(c => c.Type == "UserName");
+
+                    var claims = token.Claims.ToList();
 
 					if (userId != null)
 					{
 						claims.Add(new Claim("userId", userId.Value));
 					}
 
-					if (tokenModel.Token != null)
+                    if (userName != null)
+                    {
+                        claims.Add(new Claim("UserName", userName.Value));
+                    }
+
+                    if (tokenModel.Token != null)
                     {
 
                         claims.Add(new Claim("accessToken", tokenModel.Token));

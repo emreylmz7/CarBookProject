@@ -1,6 +1,8 @@
 ﻿using CarBookProject.Dto.Dtos.AppUser;
 using CarBookProject.Dto.Dtos.Authentication;
+using CarBookProject.Dto.Dtos.Brand;
 using CarBookProject.Dto.Dtos.Reservation;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -89,6 +91,48 @@ namespace CarBookProject.WebUI.Controllers
                 return View();
             }
             return View();
+        }
+
+        public IActionResult Security()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Security(ChangePasswordDto model)
+        {
+   
+            var userName = User.Claims.FirstOrDefault(x => x.Type == "UserName")!.Value;
+            var changePasswordDto = new ChangePasswordApiDto()
+            {
+                Username = userName,
+                NewPassword = model.NewPassword,
+                OldPassword = model.OldPassword,
+            };
+
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(changePasswordDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PutAsync("https://localhost:44335/api/Auth/ChangePassword", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "Profile");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteAccount()
+        {
+            var userName = User.Claims.FirstOrDefault(x => x.Type == "UserName")!.Value.ToString();
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.DeleteAsync($"https://localhost:44335/api/Auth/DeleteUser?username={userName}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                await HttpContext.SignOutAsync();
+                return RedirectToAction("Index", "Default");
+            }
+            return View("Security", "Profile");
         }
     }
 }

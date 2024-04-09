@@ -54,7 +54,6 @@ namespace CarBookProject.WebApi.Controllers
 			return BadRequest(result.Errors);
 		}
 
-
 		[HttpPost("Login")]
 		public async Task<IActionResult> Login(LoginAppUserResult model)
 		{
@@ -122,6 +121,44 @@ namespace CarBookProject.WebApi.Controllers
 
             return BadRequest(result.Errors);
         }
+
+        [HttpPut("ChangePassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordResult model)
+        {
+            var user = await _userManager.FindByNameAsync(model.Username!);
+            if (user == null)
+            {
+                return BadRequest(new { message = "Kullanıcı bulunamadı" });
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, model.OldPassword!, model.NewPassword!);
+            if (result.Succeeded)
+            {
+                return Ok(new { message = "Şifre başarıyla değiştirildi" });
+            }
+
+            return BadRequest(result.Errors);
+        }
+
+        [HttpDelete("DeleteUser")]
+        public async Task<IActionResult> DeleteUser(string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                return BadRequest(new { message = "Kullanıcı bulunamadı" });
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                return Ok(new { message = "Kullanıcı başarıyla silindi" });
+            }
+
+            return BadRequest(result.Errors);
+        }
+
+
 
 
         private object GenerateJWT(AppUser user)
