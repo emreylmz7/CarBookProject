@@ -27,6 +27,18 @@ namespace CarBookProject.Persistence.Repositories.ReservationRepositories
 
         }
 
+        public async Task<Reservation> GetReservationById(int id)
+        {
+            var value = await _context.Reservations!
+                .Where(x => x.ReservationId == id)
+                .Include(x => x.Car)
+                .ThenInclude(x => x!.Brand)
+                .Include(x => x.DropOffLocation)
+                .Include(x => x.PickupLocation)
+                .FirstOrDefaultAsync();
+            return value!;
+        }
+
         public async Task<List<Reservation>> GetReservationsByUserId(int id)
         {
             var values = await _context.Reservations!

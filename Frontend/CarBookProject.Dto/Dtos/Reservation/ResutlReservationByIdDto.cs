@@ -1,8 +1,8 @@
-﻿using CarBook.Domain.Enums;
+﻿using CarBookProject.Dto.Enums;
 
-namespace CarBookProject.Application.Features.Mediator.Results.ReservationResults
+namespace CarBookProject.Dto.Dtos.Reservation
 {
-    public class GetReservationByIdQueryResult
+    public class ResutlReservationByIdDto
     {
         public int ReservationId { get; set; }
         public string? CarName { get; set; }

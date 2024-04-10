@@ -67,6 +67,7 @@ namespace CarBookProject.WebUI.Controllers
                     var token = handler.ReadJwtToken(tokenModel.Token);
 					var userId = token.Claims.FirstOrDefault(c => c.Type == "nameid");
 					var userName = token.Claims.FirstOrDefault(c => c.Type == "UserName");
+					var role = token.Claims.FirstOrDefault(c => c.Type == "role");
 
                     var claims = token.Claims.ToList();
 
@@ -85,6 +86,12 @@ namespace CarBookProject.WebUI.Controllers
 
                         claims.Add(new Claim("accessToken", tokenModel.Token));
                         var claimsIdentity = new ClaimsIdentity(claims,JwtBearerDefaults.AuthenticationScheme);
+
+                        if (role != null)
+                        {
+                            claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, role.Value));
+                        }
+
                         var authProps = new AuthenticationProperties
                         {
                             ExpiresUtc = DateTime.Now.AddDays(1),

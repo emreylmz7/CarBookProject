@@ -72,15 +72,15 @@ namespace CarBookProject.WebApi.Controllers
 		public async Task<IActionResult> Login(LoginAppUserResult model)
 		{
 			var user = await _userManager.FindByNameAsync(model.Username);
-			if (user == null)
+            if (user == null)
 			{
 				return BadRequest(new { message = "Kullanıcı adı Hatalı" });
 			}
 
-			var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, true);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, true);
 			if (result.Succeeded)
 			{
-				return Ok(new { token = GenerateJWT(user)});
+				return Ok(new { token = GenerateJWT(user).Result });
 			}
 			return Unauthorized();
 		}
@@ -201,36 +201,40 @@ namespace CarBookProject.WebApi.Controllers
             return BadRequest("Rol oluşturma işlemi başarısız");
         }
 
+        private async Task<object> GenerateJWT(AppUser user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_configuration.GetSection("AppSettings:Secret").Value ?? "");
 
+            // Kullanıcının rollerini al
+            var userRoles = await _userManager.GetRolesAsync(user);
 
-        private object GenerateJWT(AppUser user)
-		{
-			var tokenHandler = new JwtSecurityTokenHandler();
-			var key = Encoding.ASCII.GetBytes(_configuration.GetSection("AppSettings:Secret").Value ?? "");
-			var tokenDescriptor = new SecurityTokenDescriptor
-			{
-				Subject = new ClaimsIdentity(
-					new Claim[] {
-						new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-						new Claim(ClaimTypes.Name, user.UserName ?? ""),
-						new Claim("Name", user.Name ?? ""),
-						new Claim("Surname", user.Surname!),
-						new Claim("Email", user.Email!),
-						new Claim("PhoneNumber", user.PhoneNumber ?? ""),
-						new Claim("UserName", user.UserName!),
-						new Claim("Address", user.Address ?? ""),
-						new Claim("DateOfBirth", user.DateOfBirth.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString()),
-						new Claim("RegistrationDate", user.RegistrationDate.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString()),
-						new Claim("Age", user.Age.ToString() ?? "18"),
-						new Claim("LicenseIssuanceYear", user.LicenseIssuanceYear.ToString() ?? "0"),
-						new Claim("IsActive", user.IsActive.ToString() ?? "true"),
-					}
-				),
-				Expires = DateTime.UtcNow.AddDays(1),
-				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-			};
-			var token = tokenHandler.CreateToken(tokenDescriptor);
-			return tokenHandler.WriteToken(token);
-		}
-	}
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(
+                    new Claim[] {
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                        new Claim(ClaimTypes.Name, user.UserName ?? ""),
+                        new Claim("Name", user.Name ?? ""),
+                        new Claim("Surname", user.Surname!),
+                        new Claim("Email", user.Email!),
+                        new Claim("PhoneNumber", user.PhoneNumber ?? ""),
+                        new Claim("UserName", user.UserName!),
+                        new Claim("Address", user.Address ?? ""),
+                        new Claim("DateOfBirth", user.DateOfBirth.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString()),
+                        new Claim("RegistrationDate", user.RegistrationDate.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString()),
+                        new Claim("Age", user.Age.ToString() ?? "18"),
+                        new Claim("LicenseIssuanceYear", user.LicenseIssuanceYear.ToString() ?? "0"),
+                        new Claim("IsActive", user.IsActive.ToString() ?? "true"),
+                    }
+                    .Concat(userRoles.Select(role => new Claim(ClaimTypes.Role, role))) 
+                ),
+                Expires = DateTime.UtcNow.AddDays(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+
+    }
 }
