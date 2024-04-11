@@ -1,6 +1,5 @@
 ﻿using CarBookProject.Dto.Dtos.AppUser;
 using CarBookProject.Dto.Dtos.Authentication;
-using CarBookProject.Dto.Dtos.Brand;
 using CarBookProject.Dto.Dtos.Reservation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -123,7 +122,19 @@ namespace CarBookProject.WebUI.Controllers
                 return View(values);
             }
 
-            return View();
+            return RedirectToAction("Reservations","Profile");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteReservation(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.DeleteAsync($"https://localhost:44335/api/Reservations/{id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Reservations", "Profile");
+            }
+            return RedirectToAction("Reservations", "Profile");
         }
 
         public IActionResult Security()

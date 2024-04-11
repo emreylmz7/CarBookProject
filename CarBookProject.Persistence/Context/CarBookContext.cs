@@ -45,7 +45,7 @@ namespace CarBookProject.Persistence.Context
                 .HasOne(p => p.Reservation)
                 .WithMany(u => u.Payments)
                 .HasForeignKey(p => p.ReservationId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             //Invoices
             modelBuilder.Entity<Invoice>()

@@ -231,19 +231,20 @@
                                                 @switch (item.Status)
                                                 {
                                                     case ReservationStatus.Pending:
-                                                        <a class="btn btn-sm btn-outline-primary px-2" href="/Payment/Index/@item.ReservationId">Pay</a>
+                                                        <a class="btn btn-sm btn-outline-dark" href="/Profile/Reservation/@item.ReservationId"><i class="fas fa-info-circle"></i> Detail</a>
+                                                        <a class="btn btn-sm btn-outline-primary px-2" href="/Payment/Index/@item.ReservationId"><i class="fas fa-money-check"></i> Pay</a>
                                                         break;
                                                     case ReservationStatus.Confirmed:
-                                                        <a class="btn btn-sm btn-outline-dark" href="/Profile/Reservation/@item.ReservationId">Details</a>
+                                                        <a class="btn btn-sm btn-outline-dark" href="/Profile/Reservation/@item.ReservationId"><i class="fas fa-info-circle"></i> Detail</a>
                                                         break;
                                                     case ReservationStatus.Cancelled:
                                                         <a class="btn btn-sm btn-outline-danger" href="#!">Remove</a>
                                                         break;
                                                     case ReservationStatus.Completed:
-                                                        <a class="btn btn-sm btn-outline-dark" href="/Profile/Reservation/@item.ReservationId">Details</a>
+                                                        <a class="btn btn-sm btn-outline-dark" href="/Profile/Reservation/@item.ReservationId"><i class="fas fa-info-circle"></i> Detail</a>
                                                         break;
                                                     default:
-                                                        <a class="btn btn-sm btn-outline-secondary" href="/Profile/Reservation/@item.ReservationId">Details</a>
+                                                        <a class="btn btn-sm btn-outline-dark" href="/Profile/Reservation/@item.ReservationId"><i class="fas fa-info-circle"></i> Detail</a>
                                                         break;
                                                 }
                                             </td>

@@ -18,6 +18,7 @@ namespace CarBookProject.Dto.Dtos.Reservation
         public string? AdditionalComments { get; set; }
         public ReservationStatus Status { get; set; }
         public int AppUserId { get; set; }
+        public string? AppUserName { get; set; }
         public decimal TotalCost { get; set; }
     }
 }

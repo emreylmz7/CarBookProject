@@ -17,6 +17,7 @@ namespace CarBookProject.WebApi.Mappings
             CreateMap<Reservation, GetReservationByIdQueryResult>()
                 .ForMember(dest => dest.CarName, opt => opt.MapFrom(src => src.Car!.Model))
                 .ForMember(dest => dest.CarBrand, opt => opt.MapFrom(src => src.Car!.Brand.Name))
+                .ForMember(dest => dest.AppUserName, opt => opt.MapFrom(src => src.AppUser!.Name + " " + src.AppUser.Surname))
                 .ForMember(dest => dest.PickupLocation, opt => opt.MapFrom(src => src.PickupLocation!.Name))
                 .ForMember(dest => dest.DropOffLocation, opt => opt.MapFrom(src => src.DropOffLocation!.Name))
                 .ForMember(dest => dest.TotalRentDay, opt => opt.MapFrom(src => CalculateTotalRentDay(src)))

@@ -18,6 +18,7 @@ namespace CarBookProject.Application.Features.Mediator.Results.ReservationResult
         public string? AdditionalComments { get; set; }
         public ReservationStatus Status { get; set; }
         public int AppUserId { get; set; }
+        public string? AppUserName { get; set; }
         public decimal TotalCost { get; set; }
     }
 }

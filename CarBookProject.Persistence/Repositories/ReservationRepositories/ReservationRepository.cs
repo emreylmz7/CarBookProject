@@ -31,6 +31,7 @@ namespace CarBookProject.Persistence.Repositories.ReservationRepositories
         {
             var value = await _context.Reservations!
                 .Where(x => x.ReservationId == id)
+                .Include(x => x.AppUser)
                 .Include(x => x.Car)
                 .ThenInclude(x => x!.Brand)
                 .Include(x => x.DropOffLocation)
