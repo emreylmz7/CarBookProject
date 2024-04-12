@@ -1,0 +1,55 @@
+﻿@model List<ResultPaymentDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Payment List</h4>
+                        <p class="card-subtitle mb-4">
+                            You can view and manage payments on this page.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>User Name</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                        <th>Reservation ID</th>
+                                        <th>Status</th>
+                                        <th>Method</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <td>@count</td>
+                                            <td>@item.AppUserName</td>
+                                            <td>@item.Amount</td>
+                                            <td>@item.PaymentDate.ToShortDateString()</td>
+                                            <td>@item.ReservationId</td>
+                                            <td>@item.Status</td>
+                                            <td>@item.Method</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

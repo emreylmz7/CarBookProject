@@ -14,7 +14,9 @@ namespace CarBookProject.WebApi.Mappings
             CreateMap<UpdatePaymentCommand, Payment>().ReverseMap();
             CreateMap<GetPaymentByIdQueryResult, Payment>().ReverseMap();
             CreateMap<GetPaymentByUserIdQueryResult, Payment>().ReverseMap();
-            CreateMap<GetPaymentQueryResult, Payment>().ReverseMap();
+            CreateMap<Payment, GetPaymentQueryResult>()
+                .ForMember(dest => dest.AppUserName, opt => opt.MapFrom(src => src.AppUser!.Name+" "+src.AppUser.Surname))
+                .ReverseMap();
         }
     }
 }

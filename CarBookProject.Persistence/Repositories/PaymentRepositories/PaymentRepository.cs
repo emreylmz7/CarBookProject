@@ -59,7 +59,10 @@ namespace CarBookProject.Persistence.Repositories.PaymentRepositories
 
         public Task<List<Payment>> GetPaymentsWithInfo()
         {
-            throw new NotImplementedException();
+            var payments = _context.Payments
+                                    .Include(x=>x.AppUser)
+                                    .ToListAsync();
+            return payments;
         }
     }
 }

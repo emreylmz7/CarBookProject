@@ -1,6 +1,4 @@
-﻿using CarBookProject.Dto.Enums;
-
-namespace CarBookProject.Dto.Dtos.Payment
+﻿namespace CarBookProject.Dto.Dtos.Payment
 {
     public class ResultPaymentDto
     {
@@ -8,9 +6,10 @@ namespace CarBookProject.Dto.Dtos.Payment
         public decimal Amount { get; set; }
         public DateTime PaymentDate { get; set; }
         public int AppUserId { get; set; }
+        public string? AppUserName { get; set; }
         public int ReservationId { get; set; }
-        public PaymentStatus Status { get; set; }
-        public PaymentMethod Method { get; set; }
+        public string? Status { get; set; }
+        public string? Method { get; set; }
         public decimal TransactionFee { get; set; }
     }
 }
