@@ -26,6 +26,7 @@
                                         <th>Reservation ID</th>
                                         <th>Status</th>
                                         <th>Method</th>
+                                        <th>Invoice</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -40,6 +41,7 @@
                                             <td>@item.ReservationId</td>
                                             <td>@item.Status</td>
                                             <td>@item.Method</td>
+                                            <td><a class="btn btn-sm btn-outline-primary" href="/Payment/Invoice/@item.PaymentId">Get Invoice</a></td>
                                         </tr>
                                     }
                                 </tbody>

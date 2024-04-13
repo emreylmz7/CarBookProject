@@ -35,8 +35,6 @@ using CarBookProject.Persistence.Repositories.PaymentRepositories;
 using CarBookProject.Application.Interfaces.PaymentInterfaces;
 using CarBookProject.Application.Interfaces.InvoiceInterfaces;
 using CarBookProject.Persistence.Repositories.InvoiceRepositories;
-using CarBook.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 
 namespace CarBookProject.WebApi.Extensions
 {
@@ -46,6 +44,7 @@ namespace CarBookProject.WebApi.Extensions
         {
             services.AddScoped<CarBookContext, CarBookContext>();
 
+            #region Repositories
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
             services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
@@ -61,7 +60,9 @@ namespace CarBookProject.WebApi.Extensions
             services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
             services.AddScoped(typeof(IPaymentRepository), typeof(PaymentRepository));
             services.AddScoped(typeof(IInvoiceRepository), typeof(InvoiceRepository));
+            #endregion
 
+            #region Handlers
             services.AddScoped<GetAboutQueryHandler>();
             services.AddScoped<GetAboutByIdQueryHandler>();
             services.AddScoped<CreateAboutCommandHandler>();
@@ -98,6 +99,7 @@ namespace CarBookProject.WebApi.Extensions
             services.AddScoped<CreateContactCommandHandler>();
             services.AddScoped<UpdateContactCommandHandler>();
             services.AddScoped<RemoveContactCommandHandler>();
+            #endregion
         }
     }
 }

@@ -2,6 +2,7 @@ using CarBook.Domain.Entities;
 using CarBookProject.Application.Services;
 using CarBookProject.Persistence.Context;
 using CarBookProject.WebApi.Extensions;
+using CarBookProject.WebApi.Hubs;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -10,10 +11,22 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHttpClient(); 
+builder.Services.AddHttpClient();
+
+builder.Services.AddCors(opt =>
+{
+	opt.AddPolicy("CorsPolicy", builder =>
+	{
+		builder.AllowAnyHeader()
+		.AllowAnyMethod()
+		.SetIsOriginAllowed((host) => true)
+		.AllowCredentials();
+	});
+});
+
+builder.Services.AddSignalR();
 
 builder.Services.AddHttpContextAccessor();
 
@@ -62,6 +75,7 @@ builder.Services.AddControllers().AddFluentValidation(x =>
               
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(option =>
 {
 	option.SwaggerDoc("v1", new OpenApiInfo { Title = "Carbook API", Version = "v1" });
@@ -99,6 +113,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("CorsPolicy");
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
@@ -106,5 +122,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<CarHub>("/carhub");
 
 app.Run();
